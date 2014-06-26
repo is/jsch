@@ -729,7 +729,7 @@ key_type+" key fingerprint is "+key_fprint+".\n"+
     if(i==HostKeyRepository.OK &&
        JSch.getLogger().isEnabled(Logger.INFO)){
       JSch.getLogger().log(Logger.INFO, 
-                           "Host '"+host+"' is known and mathces the "+key_type+" host key");
+                           "Host '"+host+"' is known and matches the "+key_type+" host key");
     }
 
     if(insert &&
