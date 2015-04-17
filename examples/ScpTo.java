@@ -9,7 +9,7 @@ public class ScpTo{
     if(arg.length!=2){
       System.err.println("usage: java ScpTo file1 user@remotehost:file2");
       System.exit(-1);
-    }      
+    }
 
     FileInputStream fis=null;
     try{
@@ -27,6 +27,11 @@ public class ScpTo{
       UserInfo ui=new MyUserInfo();
       session.setUserInfo(ui);
       session.connect();
+
+      if(remoteIsEqual(session, lfile, rfile)) {
+        System.out.println("Files are equal, not performing SCP");
+        System.exit(0);
+      }
 
       boolean ptimestamp = true;
 
@@ -51,7 +56,7 @@ public class ScpTo{
         command="T "+(_lfile.lastModified()/1000)+" 0";
         // The access time should be sent here,
         // but it is not accessible with JavaAPI ;-<
-        command+=(" "+(_lfile.lastModified()/1000)+" 0\n"); 
+        command+=(" "+(_lfile.lastModified()/1000)+" 0\n");
         out.write(command.getBytes()); out.flush();
         if(checkAck(in)!=0){
   	  System.exit(0);
@@ -132,22 +137,22 @@ public class ScpTo{
     public String getPassword(){ return passwd; }
     public boolean promptYesNo(String str){
       Object[] options={ "yes", "no" };
-      int foo=JOptionPane.showOptionDialog(null, 
+      int foo=JOptionPane.showOptionDialog(null,
              str,
-             "Warning", 
-             JOptionPane.DEFAULT_OPTION, 
+             "Warning",
+             JOptionPane.DEFAULT_OPTION,
              JOptionPane.WARNING_MESSAGE,
              null, options, options[0]);
        return foo==0;
     }
-  
+
     String passwd;
     JTextField passwordField=(JTextField)new JPasswordField(20);
 
     public String getPassphrase(){ return null; }
     public boolean promptPassphrase(String message){ return true; }
     public boolean promptPassword(String message){
-      Object[] ob={passwordField}; 
+      Object[] ob={passwordField};
       int result=
 	  JOptionPane.showConfirmDialog(null, ob, message,
 					JOptionPane.OK_CANCEL_OPTION);
@@ -160,7 +165,7 @@ public class ScpTo{
     public void showMessage(String message){
       JOptionPane.showMessageDialog(null, message);
     }
-    final GridBagConstraints gbc = 
+    final GridBagConstraints gbc =
       new GridBagConstraints(0,0,1,1,1,1,
                              GridBagConstraints.NORTHWEST,
                              GridBagConstraints.NONE,
@@ -202,7 +207,7 @@ public class ScpTo{
         gbc.gridy++;
       }
 
-      if(JOptionPane.showConfirmDialog(null, panel, 
+      if(JOptionPane.showConfirmDialog(null, panel,
                                        destination+": "+name,
                                        JOptionPane.OK_CANCEL_OPTION,
                                        JOptionPane.QUESTION_MESSAGE)
@@ -217,5 +222,65 @@ public class ScpTo{
         return null;  // cancel
       }
     }
+  }
+
+  private static boolean remoteIsEqual(Session session, String localPath, String remotePath) throws IOException {
+    boolean isEqual = false;
+
+    String rawString = remoteExecStdout(session, "date --utc --reference=" + remotePath + " +%s");
+    if(rawString == null) {
+      System.err.println("no existing remote file: "+ remotePath);
+    }
+    else {
+      long rMtime = Long.valueOf(rawString).longValue() * 1000;
+      long rSize = Long.valueOf(remoteExecStdout(session, "ls -l --full-time " + remotePath).split("\\s+")[4]).longValue();
+      File lFile = new File(localPath);
+
+      System.err.println("lFile size: " + lFile.length());
+      System.err.println("rFile size: " + rSize);
+      System.err.println("lFile mtime: " + lFile.lastModified());
+      System.err.println("rFile mtime: " + rMtime);
+
+      if(rMtime == lFile.lastModified() && rSize == lFile.length()) {
+        isEqual = true;
+      }
+    }
+
+    return isEqual;
+  }
+
+  private static String remoteExecStdout(Session session, String command) throws IOException {
+    int exitCode = -1;
+
+    Channel channel=session.openChannel("exec");
+    ((ChannelExec)channel).setCommand(command);
+    System.err.println("Remote exection of command: [".concat(session.getHost()).concat("]: ").concat(command));
+    String fullOut = new String();
+
+    InputStream in=channel.getInputStream();
+    channel.connect();
+    byte[] tmp=new byte[1024];
+    while(true){
+      while(in.available()>0){
+        int i=in.read(tmp, 0, 1024);
+        if(i<0)break;
+        fullOut = fullOut.concat(new String(tmp, 0, i));
+      }
+      if(channel.isClosed()){
+        if(in.available()>0) continue;
+        exitCode = channel.getExitStatus();
+        break;
+      }
+      try{Thread.sleep(1000);}catch(Exception ee){}
+    }
+
+    channel.disconnect();
+    if(exitCode != 0) {
+      fullOut = null;
+    }
+    else {
+      fullOut = fullOut.trim();
+    }
+    return fullOut;
   }
 }
