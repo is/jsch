@@ -229,7 +229,7 @@ loop:
 
     return result;
   }
-  /** {@inheritDoc} */
+  @Override
   public void add(HostKey hostkey, UserInfo userinfo){
     int type=hostkey.type;
     String host=hostkey.getHost();
@@ -304,7 +304,7 @@ loop:
   public HostKey[] getHostKey(){
     return getHostKey(null, null);
   }
-  /** {@inheritDoc} */
+  @Override
   public HostKey[] getHostKey(String host, String type){
     synchronized(pool){
       int count=0;
@@ -332,7 +332,7 @@ loop:
       return foo;
     }
   }
-  /** {@inheritDoc} */
+  @Override
   public void remove(String host, String type){
     remove(host, type, null);
   }

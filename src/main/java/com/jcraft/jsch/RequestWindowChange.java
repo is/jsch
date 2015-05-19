@@ -40,7 +40,7 @@ class RequestWindowChange extends Request{
     this.width_pixels=wp;
     this.height_pixels=hp;
   }
-  /** {@inheritDoc} */
+  @Override
   public void request(Session session, Channel channel) throws Exception{
     super.request(session, channel);
 

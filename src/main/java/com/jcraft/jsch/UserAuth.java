@@ -51,9 +51,24 @@ public abstract class UserAuth{
   /** Constant <code>SSH_MSG_USERAUTH_PK_OK=60</code> */
   protected static final int SSH_MSG_USERAUTH_PK_OK=                 60;
 
+  /**
+   * SSH user information
+   */
   protected UserInfo userinfo;
+  
+  /**
+   * Packet to be sent
+   */
   protected Packet packet;
+  
+  /**
+   * Buffer of input from the Packet
+   */
   protected Buffer buf;
+  
+  /**
+   * Username for this SSH session
+   */
   protected String username;
 
   /**

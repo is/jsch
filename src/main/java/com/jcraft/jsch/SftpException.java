@@ -36,7 +36,10 @@ package com.jcraft.jsch;
  * @version $Id: $Id
  */
 public class SftpException extends Exception{
-  //private static final long serialVersionUID=-5616888495583253811L;
+  
+  /**
+   * The ID of this exception
+   */
   public int id;
   private Throwable cause=null;
   /**

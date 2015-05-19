@@ -51,7 +51,7 @@ public class Compression implements com.jcraft.jsch.Compression {
     stream=new ZStream();
   }
 
-  /** {@inheritDoc} */
+  @Override
   public void init(int type, int level){
     if(type==DEFLATER){
       stream.deflateInit(level);
@@ -82,7 +82,7 @@ public class Compression implements com.jcraft.jsch.Compression {
   }
   */
 
-  /** {@inheritDoc} */
+  @Override
   public int compress(byte[] buf, int start, int len){
     stream.next_in=buf;
     stream.next_in_index=start;

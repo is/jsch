@@ -55,7 +55,7 @@ public class GSSContextKrb5 implements com.jcraft.jsch.GSSContext{
     getSystemProperty(pUseSubjectCredsOnly);
 
   private GSSContext context=null;
-  /** {@inheritDoc} */
+  @Override
   public void create(String user, String host) throws JSchException{
     try{
       // RFC 1964
@@ -127,7 +127,7 @@ public class GSSContextKrb5 implements com.jcraft.jsch.GSSContext{
     return context.isEstablished();
   }
 
-  /** {@inheritDoc} */
+  @Override
   public byte[] init(byte[] token, int s, int l) throws JSchException {
     try{
       // Without setting "javax.security.auth.useSubjectCredsOnly" to "false",
@@ -155,7 +155,7 @@ public class GSSContextKrb5 implements com.jcraft.jsch.GSSContext{
     }
   }
 
-  /** {@inheritDoc} */
+  @Override
   public byte[] getMIC(byte[] message, int s, int l){
     try{
       MessageProp prop =  new MessageProp(0, true);

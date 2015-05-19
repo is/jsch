@@ -54,7 +54,7 @@ public class UserAuthGSSAPIWithMIC extends UserAuth {
     "gssapi-with-mic.krb5"
   };
 
-  /** {@inheritDoc} */
+  @Override
   public boolean start(Session session)throws Exception{
     super.start(session);
 

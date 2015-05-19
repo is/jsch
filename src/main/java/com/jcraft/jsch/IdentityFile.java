@@ -932,7 +932,7 @@ System.err.println("");
     return (byte)(c-'A'+10);
   }
 
-  /** {@inheritDoc} */
+  @Override
   public boolean equals(Object o){
     if(!(o instanceof IdentityFile)) return super.equals(o);
     IdentityFile foo=(IdentityFile)o;

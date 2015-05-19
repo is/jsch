@@ -58,7 +58,7 @@ public class SHA1 implements HASH{
       System.err.println(e);
     }
   }
-  /** {@inheritDoc} */
+  @Override
   public void update(byte[] foo, int start, int len) throws Exception{
     md.update(foo, start, len);
   }

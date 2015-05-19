@@ -60,7 +60,7 @@ public class CipherNone implements Cipher{
    */
   public void init(int mode, byte[] key, byte[] iv) throws Exception{
   }
-  /** {@inheritDoc} */
+  @Override
   public void update(byte[] foo, int s1, int len, byte[] bar, int s2) throws Exception{
   }
   /**

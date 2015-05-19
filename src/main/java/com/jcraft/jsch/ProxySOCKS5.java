@@ -93,7 +93,7 @@ public class ProxySOCKS5 implements Proxy{
     this.user=user;
     this.passwd=passwd;
   }
-  /** {@inheritDoc} */
+  @Override
   public void connect(SocketFactory socket_factory, String host, int port, int timeout) throws JSchException{
     try{
       if(socket_factory==null){

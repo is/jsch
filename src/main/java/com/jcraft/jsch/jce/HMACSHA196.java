@@ -43,18 +43,11 @@ public class HMACSHA196 implements MAC{
   private static final String name="hmac-sha1-96";
   private static final int bsize=12;
   private Mac mac;
-  /**
-   * <p>getBlockSize.</p>
-   *
-   * @return a int.
-   */
+
+  @Override
   public int getBlockSize(){return bsize;};
-  /**
-   * <p>init.</p>
-   *
-   * @param key an array of byte.
-   * @throws java.lang.Exception if any.
-   */
+
+  @Override
   public void init(byte[] key) throws Exception{
     if(key.length>20){
       byte[] tmp=new byte[20];
@@ -66,7 +59,8 @@ public class HMACSHA196 implements MAC{
     mac.init(skey);
   } 
   private final byte[] tmp=new byte[4];
-  /** {@inheritDoc} */
+
+  @Override
   public void update(int i){
     tmp[0]=(byte)(i>>>24);
     tmp[1]=(byte)(i>>>16);
@@ -74,13 +68,15 @@ public class HMACSHA196 implements MAC{
     tmp[3]=(byte)i;
     update(tmp, 0, 4);
   }
-  /** {@inheritDoc} */
+
+  @Override
   public void update(byte foo[], int s, int l){
     mac.update(foo, s, l);      
   }
 
   private final byte[] _buf20=new byte[20];
-  /** {@inheritDoc} */
+
+  @Override
   public void doFinal(byte[] buf, int offset){
     try{
       mac.doFinal(_buf20, 0);
@@ -90,12 +86,7 @@ public class HMACSHA196 implements MAC{
     System.arraycopy(_buf20, 0, buf, offset, 12);
   }
 
-  /**
-   * <p>Getter for the field <code>name</code>.</p>
-   *
-   * @return a {@link java.lang.String} object.
-   * @since 0.1.53
-   */
+  @Override
   public String getName(){
     return name;
   }

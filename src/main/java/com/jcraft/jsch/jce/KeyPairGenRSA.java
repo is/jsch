@@ -49,7 +49,7 @@ public class KeyPairGenRSA implements com.jcraft.jsch.KeyPairGenRSA{
   byte[] p;  // prime p
   byte[] q;  // prime q
 
-  /** {@inheritDoc} */
+  @Override
   public void init(int key_size) throws Exception{
     KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
     keyGen.initialize(key_size, new SecureRandom());

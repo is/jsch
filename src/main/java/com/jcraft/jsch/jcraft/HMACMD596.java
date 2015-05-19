@@ -50,7 +50,7 @@ public class HMACMD596 extends HMACMD5{
   public int getBlockSize(){return BSIZE;};
 
   private final byte[] _buf16=new byte[16];
-  /** {@inheritDoc} */
+  @Override
   public void doFinal(byte[] buf, int offset){
     super.doFinal(_buf16, 0);
     System.arraycopy(_buf16, 0, buf, offset, BSIZE);

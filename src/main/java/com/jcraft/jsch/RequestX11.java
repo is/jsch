@@ -38,7 +38,7 @@ class RequestX11 extends Request{
   public void setCookie(String cookie){
     ChannelX11.cookie=Util.str2byte(cookie);
   }
-  /** {@inheritDoc} */
+  @Override
   public void request(Session session, Channel channel) throws Exception{
     super.request(session, channel);
 

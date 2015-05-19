@@ -183,11 +183,11 @@ public class ChannelDirectTCPIP extends Channel{
     //System.err.println("connect end");
   }
 
-  /** {@inheritDoc} */
+  @Override
   public void setInputStream(InputStream in){
     io.setInputStream(in);
   }
-  /** {@inheritDoc} */
+  @Override
   public void setOutputStream(OutputStream out){
     io.setOutputStream(out);
   }

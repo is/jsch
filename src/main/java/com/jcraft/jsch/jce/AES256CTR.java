@@ -88,7 +88,7 @@ public class AES256CTR implements Cipher{
       throw e;
     }
   }
-  /** {@inheritDoc} */
+  @Override
   public void update(byte[] foo, int s1, int len, byte[] bar, int s2) throws Exception{
     cipher.update(foo, s1, len, bar, s2);
   }

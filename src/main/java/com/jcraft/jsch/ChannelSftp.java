@@ -2810,6 +2810,9 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * Filesystem listing class
+   */
   public class LsEntry implements Comparable{
     private  String filename;
     private  String longname;
@@ -2819,13 +2822,56 @@ public class ChannelSftp extends ChannelSession{
       setLongname(longname);
       setAttrs(attrs);
     }
+    
+    /**
+     * Get the file name from the listing entry
+     * @return A string representing the file name.
+     */
     public String getFilename(){return filename;};
+    
+    /**
+     * Set the file name for the listing entry
+     * @param filename The filename to be set on the listing entry
+     */
     void setFilename(String filename){this.filename = filename;};
+    
+    /**
+     * Get long version of the file name for the listing entry
+     * @return A String containing the long name of the listing entry
+     */
     public String getLongname(){return longname;};
+    
+    /**
+     * Set the long file name for the listing entry
+     * @param longname The long file name to be set on the listing entry
+     */
     void setLongname(String longname){this.longname = longname;};
+    
+    /**
+     * Get file attributes for this listing entry
+     * @return The file attributes as a {@link SftpATTRS} object
+     */
     public SftpATTRS getAttrs(){return attrs;};
+    
+    /**
+     * Set the file attributes for this listing entry
+     * @param attrs An instance of {@link SftpATTRS} with the attributes to be set
+     */
     void setAttrs(SftpATTRS attrs) {this.attrs = attrs;};
+    
+    /**
+     * Return the long version of the file name for this listing entry
+     * @return The long file name
+     */
     public String toString(){ return longname; }
+    
+    /**
+     * Compare 2 listing entries and return the differential value
+     * @param o The object with which to compare this listing entry
+     * @return An integer which is less-than-zero for items sorted higher than this entry, greater-than-zero for items
+     *          to be sorted lower than this entry, and 0 if the items are equal
+     * @throws ClassCastException If the provided object is not of type {@link LsEntry}
+     */
     public int compareTo(Object o) throws ClassCastException{
       if(o instanceof LsEntry){
         return filename.compareTo(((LsEntry)o).getFilename());

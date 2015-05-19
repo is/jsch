@@ -37,7 +37,7 @@ class RequestSignal extends Request{
    * @param foo a {@link java.lang.String} object.
    */
   public void setSignal(String foo){ signal=foo; }
-  /** {@inheritDoc} */
+  @Override
   public void request(Session session, Channel channel) throws Exception{
     super.request(session, channel);
 

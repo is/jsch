@@ -68,10 +68,29 @@ public abstract class KeyExchange{
   /** Constant <code>STATE_END=0</code> */
   public static final int STATE_END=0;
 
+  /**
+   * A JSch {@link Session} instance
+   */
   protected Session session=null;
+  
+  /**
+   * The SHA hash for the key
+   */
   protected HASH sha=null;
+  
+  /**
+   * TODO
+   */
   protected byte[] K=null;
+  
+  /**
+   * TODO
+   */
   protected byte[] H=null;
+  
+  /**
+   * TODO
+   */
   protected byte[] K_S=null;
 
   /**

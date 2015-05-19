@@ -39,7 +39,7 @@ public class RequestSftp extends Request{
   RequestSftp(){
     setReply(true);
   }
-  /** {@inheritDoc} */
+  @Override
   public void request(Session session, Channel channel) throws Exception{
     super.request(session, channel);
 

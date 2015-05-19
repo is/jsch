@@ -137,6 +137,9 @@ public class Session implements Runnable{
   private int serverAliveInterval=0;
   private int serverAliveCountMax=1;
 
+  /**
+   * Set daemon behavior for this thread
+   */
   protected boolean daemon_thread=false;
 
   private long kex_start_time=0L;

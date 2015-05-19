@@ -40,9 +40,10 @@ public class ChannelSubsystem extends ChannelSession{
   boolean pty=false;
   boolean want_reply=true;
   String subsystem="";
-  /** {@inheritDoc} */
+  @Override
   public void setXForwarding(boolean foo){ xforwading=true; }
-  /** {@inheritDoc} */
+  
+  @Override
   public void setPty(boolean foo){ pty=foo; }
   /**
    * <p>setWantReply.</p>

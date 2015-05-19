@@ -130,7 +130,7 @@ public class DHGEX extends KeyExchange{
     state=SSH_MSG_KEX_DH_GEX_GROUP;
   }
 
-  /** {@inheritDoc} */
+  @Override
   public boolean next(Buffer _buf) throws Exception{
     int i,j;
     switch(state){

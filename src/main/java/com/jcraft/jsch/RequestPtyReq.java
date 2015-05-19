@@ -56,7 +56,7 @@ class RequestPtyReq extends Request{
     this.thp=thp;
   }
 
-  /** {@inheritDoc} */
+  @Override
   public void request(Session session, Channel channel) throws Exception{
     super.request(session, channel);
 

@@ -152,7 +152,7 @@ public class DHG1 extends KeyExchange{
     state=SSH_MSG_KEXDH_REPLY;
   }
 
-  /** {@inheritDoc} */
+  @Override
   public boolean next(Buffer _buf) throws Exception{
     int i,j;
 

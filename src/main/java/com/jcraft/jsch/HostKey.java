@@ -47,8 +47,19 @@ public class HostKey{
   public static final int SSHRSA=2;
   static final int UNKNOWN=3;
 
+  /**
+   * The name of the host
+   */
   protected String host;
+  
+  /**
+   * The type of key
+   */
   protected int type;
+  
+  /**
+   * The bytes of the host key
+   */
   protected byte[] key;
 
   /**

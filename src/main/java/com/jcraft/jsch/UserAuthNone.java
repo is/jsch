@@ -33,7 +33,7 @@ class UserAuthNone extends UserAuth{
   private static final int SSH_MSG_SERVICE_ACCEPT=                  6;
   private String methods=null;
 
-  /** {@inheritDoc} */
+  @Override
   public boolean start(Session session) throws Exception{
     super.start(session);
 
