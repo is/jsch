@@ -33,13 +33,37 @@ import com.jcraft.jsch.Cipher;
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
+/**
+ * <p>ARCFOUR128 class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class ARCFOUR128 implements Cipher{
   private static final int ivsize=8;
   private static final int bsize=16;
   private static final int skip=1536; 
   private javax.crypto.Cipher cipher;    
+  /**
+   * <p>getIVSize.</p>
+   *
+   * @return a int.
+   */
   public int getIVSize(){return ivsize;} 
+  /**
+   * <p>getBlockSize.</p>
+   *
+   * @return a int.
+   */
   public int getBlockSize(){return bsize;}
+  /**
+   * <p>init.</p>
+   *
+   * @param mode a int.
+   * @param key an array of byte.
+   * @param iv an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void init(int mode, byte[] key, byte[] iv) throws Exception{
     byte[] tmp;
     if(key.length>bsize){
@@ -64,8 +88,14 @@ public class ARCFOUR128 implements Cipher{
       throw e;
     }
   }
+  /** {@inheritDoc} */
   public void update(byte[] foo, int s1, int len, byte[] bar, int s2) throws Exception{
     cipher.update(foo, s1, len, bar, s2);
   }
+  /**
+   * <p>isCBC.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isCBC(){return false; }
 }

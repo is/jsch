@@ -30,9 +30,15 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package com.jcraft.jsch;
 
 class RequestX11 extends Request{
+  /**
+   * <p>setCookie.</p>
+   *
+   * @param cookie a {@link java.lang.String} object.
+   */
   public void setCookie(String cookie){
     ChannelX11.cookie=Util.str2byte(cookie);
   }
+  /** {@inheritDoc} */
   public void request(Session session, Channel channel) throws Exception{
     super.request(session, channel);
 

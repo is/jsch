@@ -41,6 +41,12 @@ import org.ietf.jgss.GSSName;
 import org.ietf.jgss.MessageProp;
 import org.ietf.jgss.Oid;
 
+/**
+ * <p>GSSContextKrb5 class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class GSSContextKrb5 implements com.jcraft.jsch.GSSContext{
 
   private static final String pUseSubjectCredsOnly = 
@@ -49,6 +55,7 @@ public class GSSContextKrb5 implements com.jcraft.jsch.GSSContext{
     getSystemProperty(pUseSubjectCredsOnly);
 
   private GSSContext context=null;
+  /** {@inheritDoc} */
   public void create(String user, String host) throws JSchException{
     try{
       // RFC 1964
@@ -111,10 +118,16 @@ public class GSSContextKrb5 implements com.jcraft.jsch.GSSContext{
     }
   }
 
+  /**
+   * <p>isEstablished.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isEstablished(){
     return context.isEstablished();
   }
 
+  /** {@inheritDoc} */
   public byte[] init(byte[] token, int s, int l) throws JSchException {
     try{
       // Without setting "javax.security.auth.useSubjectCredsOnly" to "false",
@@ -142,6 +155,7 @@ public class GSSContextKrb5 implements com.jcraft.jsch.GSSContext{
     }
   }
 
+  /** {@inheritDoc} */
   public byte[] getMIC(byte[] message, int s, int l){
     try{
       MessageProp prop =  new MessageProp(0, true);
@@ -152,6 +166,9 @@ public class GSSContextKrb5 implements com.jcraft.jsch.GSSContext{
     }
   }
 
+  /**
+   * <p>dispose.</p>
+   */
   public void dispose(){
     try{
       context.dispose();

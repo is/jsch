@@ -32,9 +32,18 @@ package com.jcraft.jsch.jcraft;
 import com.jcraft.jsch.MAC;
 import java.security.*;
 
+/**
+ * <p>HMACMD5 class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class HMACMD5 extends HMAC implements MAC{
   private static final String name="hmac-md5";
 
+  /**
+   * <p>Constructor for HMACMD5.</p>
+   */
   public HMACMD5(){
     super();
     MessageDigest md=null;
@@ -45,6 +54,11 @@ public class HMACMD5 extends HMAC implements MAC{
     setH(md);
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getName(){
     return name;
   }

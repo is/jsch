@@ -32,6 +32,12 @@ package com.jcraft.jsch;
 import java.net.*;
 import java.io.*;
 
+/**
+ * <p>ChannelForwardedTCPIP class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class ChannelForwardedTCPIP extends Channel{
 
   static java.util.Vector pool=new java.util.Vector();
@@ -58,6 +64,9 @@ public class ChannelForwardedTCPIP extends Channel{
     connected=true;
   }
 
+  /**
+   * <p>run.</p>
+   */
   public void run(){
     try{ 
       if(lport==-1){
@@ -304,6 +313,11 @@ public class ChannelForwardedTCPIP extends Channel{
     }
   }
 
+  /**
+   * <p>getRemotePort.</p>
+   *
+   * @return a int.
+   */
   public int getRemotePort(){return rport;}
   void setSocketFactory(SocketFactory factory){
     this.factory=factory;

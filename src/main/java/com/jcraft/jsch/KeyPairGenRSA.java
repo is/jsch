@@ -29,15 +29,67 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>KeyPairGenRSA interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface KeyPairGenRSA{
+  /**
+   * <p>init.</p>
+   *
+   * @param key_size a int.
+   * @throws java.lang.Exception if any.
+   */
   void init(int key_size) throws Exception;
+  /**
+   * <p>getD.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getD();
+  /**
+   * <p>getE.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getE();
+  /**
+   * <p>getN.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getN();
 
+  /**
+   * <p>getC.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getC();
+  /**
+   * <p>getEP.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getEP();
+  /**
+   * <p>getEQ.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getEQ();
+  /**
+   * <p>getP.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getP();
+  /**
+   * <p>getQ.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getQ();
 }

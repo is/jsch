@@ -32,9 +32,38 @@ package com.jcraft.jsch;
 import java.net.*;
 import java.io.*;
 
+/**
+ * <p>SocketFactory interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface SocketFactory{
+  /**
+   * <p>createSocket.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   * @param port a int.
+   * @return a {@link java.net.Socket} object.
+   * @throws java.io.IOException if any.
+   * @throws java.net.UnknownHostException if any.
+   */
   public Socket createSocket(String host, int port)throws IOException,
 							  UnknownHostException;
+  /**
+   * <p>getInputStream.</p>
+   *
+   * @param socket a {@link java.net.Socket} object.
+   * @return a {@link java.io.InputStream} object.
+   * @throws java.io.IOException if any.
+   */
   public InputStream getInputStream(Socket socket)throws IOException;
+  /**
+   * <p>getOutputStream.</p>
+   *
+   * @param socket a {@link java.net.Socket} object.
+   * @return a {@link java.io.OutputStream} object.
+   * @throws java.io.IOException if any.
+   */
   public OutputStream getOutputStream(Socket socket)throws IOException;
 }

@@ -29,6 +29,12 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>KeyPairDSA class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class KeyPairDSA extends KeyPair{
   private byte[] P_array;
   private byte[] Q_array;
@@ -39,6 +45,11 @@ public class KeyPairDSA extends KeyPair{
   //private int key_size=0;
   private int key_size=1024;
 
+  /**
+   * <p>Constructor for KeyPairDSA.</p>
+   *
+   * @param jsch a {@link com.jcraft.jsch.JSch} object.
+   */
   public KeyPairDSA(JSch jsch){
     super(jsch);
   }
@@ -190,6 +201,11 @@ public class KeyPairDSA extends KeyPair{
     return true;
   }
 
+  /**
+   * <p>getPublicKeyBlob.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getPublicKeyBlob(){
     byte[] foo=super.getPublicKeyBlob();
     if(foo!=null) return foo;
@@ -211,9 +227,22 @@ public class KeyPairDSA extends KeyPair{
 
   private static final byte[] sshdss=Util.str2byte("ssh-dss");
   byte[] getKeyTypeName(){return sshdss;}
+  /**
+   * <p>getKeyType.</p>
+   *
+   * @return a int.
+   */
   public int getKeyType(){return DSA;}
 
+  /**
+   * <p>getKeySize.</p>
+   *
+   * @return a int.
+   */
   public int getKeySize(){return key_size; }
+  /**
+   * <p>dispose.</p>
+   */
   public void dispose(){
     super.dispose();
     Util.bzero(prv_array);

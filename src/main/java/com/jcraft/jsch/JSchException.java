@@ -29,19 +29,44 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>JSchException class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class JSchException extends Exception{
   //private static final long serialVersionUID=-1319309923966731989L;
   private Throwable cause=null;
+  /**
+   * <p>Constructor for JSchException.</p>
+   */
   public JSchException () {
     super();
   }
+  /**
+   * <p>Constructor for JSchException.</p>
+   *
+   * @param s a {@link java.lang.String} object.
+   */
   public JSchException (String s) {
     super(s);
   }
+  /**
+   * <p>Constructor for JSchException.</p>
+   *
+   * @param s a {@link java.lang.String} object.
+   * @param e a {@link java.lang.Throwable} object.
+   */
   public JSchException (String s, Throwable e) {
     super(s);
     this.cause=e;
   }
+  /**
+   * <p>Getter for the field <code>cause</code>.</p>
+   *
+   * @return a {@link java.lang.Throwable} object.
+   */
   public Throwable getCause(){
     return this.cause;
   }

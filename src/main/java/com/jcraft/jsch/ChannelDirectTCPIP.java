@@ -31,6 +31,12 @@ package com.jcraft.jsch;
 
 import java.io.*;
 
+/**
+ * <p>ChannelDirectTCPIP class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class ChannelDirectTCPIP extends Channel{
 
   static private final int LOCAL_WINDOW_SIZE_MAX=0x20000;
@@ -58,6 +64,11 @@ public class ChannelDirectTCPIP extends Channel{
     }
   }
 
+  /**
+   * <p>connect.</p>
+   *
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void connect() throws JSchException{
     try{
       Session _session=getSession();
@@ -132,6 +143,9 @@ public class ChannelDirectTCPIP extends Channel{
     }
   }
 
+  /**
+   * <p>run.</p>
+   */
   public void run(){
 
     Buffer buf=new Buffer(rmpsize);
@@ -169,15 +183,37 @@ public class ChannelDirectTCPIP extends Channel{
     //System.err.println("connect end");
   }
 
+  /** {@inheritDoc} */
   public void setInputStream(InputStream in){
     io.setInputStream(in);
   }
+  /** {@inheritDoc} */
   public void setOutputStream(OutputStream out){
     io.setOutputStream(out);
   }
 
+  /**
+   * <p>Setter for the field <code>host</code>.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   */
   public void setHost(String host){this.host=host;}
+  /**
+   * <p>Setter for the field <code>port</code>.</p>
+   *
+   * @param port a int.
+   */
   public void setPort(int port){this.port=port;}
+  /**
+   * <p>setOrgIPAddress.</p>
+   *
+   * @param foo a {@link java.lang.String} object.
+   */
   public void setOrgIPAddress(String foo){this.originator_IP_address=foo;}
+  /**
+   * <p>setOrgPort.</p>
+   *
+   * @param foo a int.
+   */
   public void setOrgPort(int foo){this.originator_port=foo;}
 }

@@ -33,11 +33,28 @@ import com.jcraft.jsch.MAC;
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
+/**
+ * <p>HMACSHA1 class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class HMACSHA1 implements MAC{
   private static final String name="hmac-sha1";
   private static final int bsize=20;
   private Mac mac;
+  /**
+   * <p>getBlockSize.</p>
+   *
+   * @return a int.
+   */
   public int getBlockSize(){return bsize;};
+  /**
+   * <p>init.</p>
+   *
+   * @param key an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void init(byte[] key) throws Exception{
     if(key.length>bsize){
       byte[] tmp=new byte[bsize];
@@ -49,6 +66,7 @@ public class HMACSHA1 implements MAC{
     mac.init(skey);
   } 
   private final byte[] tmp=new byte[4];
+  /** {@inheritDoc} */
   public void update(int i){
     tmp[0]=(byte)(i>>>24);
     tmp[1]=(byte)(i>>>16);
@@ -57,10 +75,12 @@ public class HMACSHA1 implements MAC{
     update(tmp, 0, 4);
   }
 
+  /** {@inheritDoc} */
   public void update(byte foo[], int s, int l){
     mac.update(foo, s, l);      
   }
 
+  /** {@inheritDoc} */
   public void doFinal(byte[] buf, int offset){
     try{
       mac.doFinal(buf, offset);
@@ -69,6 +89,11 @@ public class HMACSHA1 implements MAC{
     }
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getName(){
     return name;
   }

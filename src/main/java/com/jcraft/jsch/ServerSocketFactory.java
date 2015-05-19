@@ -32,6 +32,21 @@ package com.jcraft.jsch;
 import java.net.*;
 import java.io.*;
 
+/**
+ * <p>ServerSocketFactory interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface ServerSocketFactory{
+  /**
+   * <p>createServerSocket.</p>
+   *
+   * @param port a int.
+   * @param backlog a int.
+   * @param bindAddr a {@link java.net.InetAddress} object.
+   * @return a {@link java.net.ServerSocket} object.
+   * @throws java.io.IOException if any.
+   */
   public ServerSocket createServerSocket(int port, int backlog, InetAddress bindAddr) throws IOException;
 }

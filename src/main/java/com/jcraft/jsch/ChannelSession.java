@@ -56,16 +56,16 @@ class ChannelSession extends Channel{
   /**
    * Enable the agent forwarding.
    *
-   * @param enable
+   * @param enable a boolean.
    */
   public void setAgentForwarding(boolean enable){ 
     agent_forwarding=enable;
   }
 
   /**
-   * Enable the X11 forwarding.
+   * {@inheritDoc}
    *
-   * @param enable
+   * Enable the X11 forwarding.
    * @see RFC4254 6.3.1. Requesting X11 Forwarding
    */
   public void setXForwarding(boolean enable){
@@ -73,9 +73,14 @@ class ChannelSession extends Channel{
   }
 
   /**
+   * <p>Setter for the field <code>env</code>.</p>
+   *
    * @deprecated Use {@link #setEnv(String, String)} or {@link #setEnv(byte[], byte[])} instead.
    * @see #setEnv(String, String)
    * @see #setEnv(byte[], byte[])
+   * @see #setEnv(String, String)
+   * @see #setEnv(byte[], byte[])
+   * @param env a {@link java.util.Hashtable} object.
    */
   public void setEnv(Hashtable env){ 
     synchronized(this){
@@ -84,9 +89,9 @@ class ChannelSession extends Channel{
   }
 
   /**
-   * Set the environment variable. 
-   * If <code>name</code> and <code>value</code> are needed to be passed 
-   * to the remote in your faivorite encoding,use 
+   * Set the environment variable.
+   * If <code>name</code> and <code>value</code> are needed to be passed
+   * to the remote in your faivorite encoding,use
    * {@link #setEnv(byte[], byte[])}.
    *
    * @param name A name for environment variable.
@@ -104,6 +109,7 @@ class ChannelSession extends Channel{
    * @param value A value of environment variable.
    * @see #setEnv(String, String)
    * @see RFC4254 6.4 Environment Variable Passing
+   * @see RFC4254 6.4 Environment Variable Passing
    */
   public void setEnv(byte[] name, byte[] value){
     synchronized(this){
@@ -120,7 +126,7 @@ class ChannelSession extends Channel{
   /**
    * Allocate a Pseudo-Terminal.
    *
-   * @param enable
+   * @param enable a boolean.
    * @see RFC4254 6.2. Requesting a Pseudo-Terminal
    */
   public void setPty(boolean enable){ 
@@ -129,8 +135,8 @@ class ChannelSession extends Channel{
 
   /**
    * Set the terminal mode.
-   * 
-   * @param terminal_mode
+   *
+   * @param terminal_mode an array of byte.
    */
   public void setTerminalMode(byte[] terminal_mode){
     this.terminal_mode=terminal_mode;
@@ -138,7 +144,7 @@ class ChannelSession extends Channel{
 
   /**
    * Change the window dimension interactively.
-   * 
+   *
    * @param col terminal width, columns
    * @param row terminal height, rows
    * @param wp terminal width, pixels
@@ -189,6 +195,11 @@ class ChannelSession extends Channel{
     this.thp=hp;
   }
 
+  /**
+   * <p>sendRequests.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   protected void sendRequests() throws Exception{
     Session _session=getSession();
     Request request;
@@ -231,6 +242,9 @@ class ChannelSession extends Channel{
     return (byte[])o;
   }
 
+  /**
+   * <p>run.</p>
+   */
   public void run(){
     //System.err.println(this+":run >");
 

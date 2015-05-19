@@ -31,10 +31,21 @@ package com.jcraft.jsch;
 
 import java.util.*;
 
+/**
+ * <p>ChannelExec class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class ChannelExec extends ChannelSession{
 
   byte[] command=new byte[0];
 
+  /**
+   * <p>start.</p>
+   *
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void start() throws JSchException{
     Session _session=getSession();
     try{
@@ -59,9 +70,19 @@ public class ChannelExec extends ChannelSession{
     }
   }
 
+  /**
+   * <p>Setter for the field <code>command</code>.</p>
+   *
+   * @param command a {@link java.lang.String} object.
+   */
   public void setCommand(String command){ 
     this.command=Util.str2byte(command);
   }
+  /**
+   * <p>Setter for the field <code>command</code>.</p>
+   *
+   * @param command an array of byte.
+   */
   public void setCommand(byte[] command){ 
     this.command=command;
   }
@@ -71,12 +92,29 @@ public class ChannelExec extends ChannelSession{
     io.setOutputStream(getSession().out);
   }
 
+  /**
+   * <p>setErrStream.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   */
   public void setErrStream(java.io.OutputStream out){
     setExtOutputStream(out);
   }
+  /**
+   * <p>setErrStream.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   * @param dontclose a boolean.
+   */
   public void setErrStream(java.io.OutputStream out, boolean dontclose){
     setExtOutputStream(out, dontclose);
   }
+  /**
+   * <p>getErrStream.</p>
+   *
+   * @return a {@link java.io.InputStream} object.
+   * @throws java.io.IOException if any.
+   */
   public java.io.InputStream getErrStream() throws java.io.IOException {
     return getExtInputStream();
   }

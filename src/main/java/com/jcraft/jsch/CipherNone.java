@@ -29,14 +29,44 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>CipherNone class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class CipherNone implements Cipher{
   private static final int ivsize=8;
   private static final int bsize=16;
+  /**
+   * <p>getIVSize.</p>
+   *
+   * @return a int.
+   */
   public int getIVSize(){return ivsize;} 
+  /**
+   * <p>getBlockSize.</p>
+   *
+   * @return a int.
+   */
   public int getBlockSize(){return bsize;}
+  /**
+   * <p>init.</p>
+   *
+   * @param mode a int.
+   * @param key an array of byte.
+   * @param iv an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void init(int mode, byte[] key, byte[] iv) throws Exception{
   }
+  /** {@inheritDoc} */
   public void update(byte[] foo, int s1, int len, byte[] bar, int s2) throws Exception{
   }
+  /**
+   * <p>isCBC.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isCBC(){return false; }
 }

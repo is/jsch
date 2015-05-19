@@ -33,15 +33,35 @@ import java.math.BigInteger;
 import java.security.*;
 import java.security.spec.*;
 
+/**
+ * <p>SignatureDSA class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class SignatureDSA implements com.jcraft.jsch.SignatureDSA{
 
   java.security.Signature signature;
   KeyFactory keyFactory;
 
+  /**
+   * <p>init.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   public void init() throws Exception{
     signature=java.security.Signature.getInstance("SHA1withDSA");
     keyFactory=KeyFactory.getInstance("DSA");
   }     
+  /**
+   * <p>setPubKey.</p>
+   *
+   * @param y an array of byte.
+   * @param p an array of byte.
+   * @param q an array of byte.
+   * @param g an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void setPubKey(byte[] y, byte[] p, byte[] q, byte[] g) throws Exception{
     DSAPublicKeySpec dsaPubKeySpec = 
 	new DSAPublicKeySpec(new BigInteger(y),
@@ -51,6 +71,15 @@ public class SignatureDSA implements com.jcraft.jsch.SignatureDSA{
     PublicKey pubKey=keyFactory.generatePublic(dsaPubKeySpec);
     signature.initVerify(pubKey);
   }
+  /**
+   * <p>setPrvKey.</p>
+   *
+   * @param x an array of byte.
+   * @param p an array of byte.
+   * @param q an array of byte.
+   * @param g an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void setPrvKey(byte[] x, byte[] p, byte[] q, byte[] g) throws Exception{
     DSAPrivateKeySpec dsaPrivKeySpec = 
 	new DSAPrivateKeySpec(new BigInteger(x),
@@ -60,6 +89,12 @@ public class SignatureDSA implements com.jcraft.jsch.SignatureDSA{
     PrivateKey prvKey = keyFactory.generatePrivate(dsaPrivKeySpec);
     signature.initSign(prvKey);
   }
+  /**
+   * <p>sign.</p>
+   *
+   * @return an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public byte[] sign() throws Exception{
     byte[] sig=signature.sign();      
 /*
@@ -99,9 +134,22 @@ System.err.println("");
 
     return result;
   }
+  /**
+   * <p>update.</p>
+   *
+   * @param foo an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void update(byte[] foo) throws Exception{
    signature.update(foo);
   }
+  /**
+   * <p>verify.</p>
+   *
+   * @param sig an array of byte.
+   * @return a boolean.
+   * @throws java.lang.Exception if any.
+   */
   public boolean verify(byte[] sig) throws Exception{
     int i=0;
     int j=0;

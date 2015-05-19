@@ -29,22 +29,51 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>SftpException class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class SftpException extends Exception{
   //private static final long serialVersionUID=-5616888495583253811L;
   public int id;
   private Throwable cause=null;
+  /**
+   * <p>Constructor for SftpException.</p>
+   *
+   * @param id a int.
+   * @param message a {@link java.lang.String} object.
+   */
   public SftpException (int id, String message) {
     super(message);
     this.id=id;
   }
+  /**
+   * <p>Constructor for SftpException.</p>
+   *
+   * @param id a int.
+   * @param message a {@link java.lang.String} object.
+   * @param e a {@link java.lang.Throwable} object.
+   */
   public SftpException (int id, String message, Throwable e) {
     super(message);
     this.id=id;
     this.cause=e;
   }
+  /**
+   * <p>toString.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String toString(){
     return id+": "+getMessage();
   }
+  /**
+   * <p>Getter for the field <code>cause</code>.</p>
+   *
+   * @return a {@link java.lang.Throwable} object.
+   */
   public Throwable getCause(){
     return this.cause;
   }

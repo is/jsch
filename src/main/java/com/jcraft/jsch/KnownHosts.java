@@ -31,6 +31,12 @@ package com.jcraft.jsch;
 
 import java.io.*;
 
+/**
+ * <p>KnownHosts class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public
 class KnownHosts implements HostKeyRepository{
   private static final String _known_hosts="known_hosts";
@@ -177,8 +183,20 @@ loop:
     pool.addElement(hk);
   }
   String getKnownHostsFile(){ return known_hosts; }
+  /**
+   * <p>getKnownHostsRepositoryID.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getKnownHostsRepositoryID(){ return known_hosts; }
 
+  /**
+   * <p>check.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   * @param key an array of byte.
+   * @return a int.
+   */
   public int check(String host, byte[] key){
     int result=NOT_INCLUDED;
     if(host==null){
@@ -211,6 +229,7 @@ loop:
 
     return result;
   }
+  /** {@inheritDoc} */
   public void add(HostKey hostkey, UserInfo userinfo){
     int type=hostkey.type;
     String host=hostkey.getHost();
@@ -277,9 +296,15 @@ loop:
     }
   }
 
+  /**
+   * <p>getHostKey.</p>
+   *
+   * @return an array of {@link com.jcraft.jsch.HostKey} objects.
+   */
   public HostKey[] getHostKey(){
     return getHostKey(null, null);
   }
+  /** {@inheritDoc} */
   public HostKey[] getHostKey(String host, String type){
     synchronized(pool){
       int count=0;
@@ -307,9 +332,17 @@ loop:
       return foo;
     }
   }
+  /** {@inheritDoc} */
   public void remove(String host, String type){
     remove(host, type, null);
   }
+  /**
+   * <p>remove.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   * @param type a {@link java.lang.String} object.
+   * @param key an array of byte.
+   */
   public void remove(String host, String type, byte[] key){
     boolean sync=false;
     synchronized(pool){
@@ -337,10 +370,21 @@ loop:
     }
   }
 
+  /**
+   * <p>sync.</p>
+   *
+   * @throws java.io.IOException if any.
+   */
   protected void sync() throws IOException { 
     if(known_hosts!=null)
       sync(known_hosts); 
   }
+  /**
+   * <p>sync.</p>
+   *
+   * @param foo a {@link java.lang.String} object.
+   * @throws java.io.IOException if any.
+   */
   protected synchronized void sync(String foo) throws IOException {
     if(foo==null) return;
     FileOutputStream fos=new FileOutputStream(foo);

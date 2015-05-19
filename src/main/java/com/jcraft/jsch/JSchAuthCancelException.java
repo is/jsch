@@ -39,6 +39,11 @@ class JSchAuthCancelException extends JSchException{
     super(s);
     this.method=s;
   }
+  /**
+   * <p>Getter for the field <code>method</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getMethod(){
     return method;
   }

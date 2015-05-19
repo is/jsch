@@ -33,18 +33,41 @@ import com.jcraft.jsch.HASH;
 
 import java.security.*;
 
+/**
+ * <p>SHA1 class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class SHA1 implements HASH{
   MessageDigest md;
+  /**
+   * <p>getBlockSize.</p>
+   *
+   * @return a int.
+   */
   public int getBlockSize(){return 20;}
+  /**
+   * <p>init.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   public void init() throws Exception{
     try{ md=MessageDigest.getInstance("SHA-1"); }
     catch(Exception e){
       System.err.println(e);
     }
   }
+  /** {@inheritDoc} */
   public void update(byte[] foo, int start, int len) throws Exception{
     md.update(foo, start, len);
   }
+  /**
+   * <p>digest.</p>
+   *
+   * @return an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public byte[] digest() throws Exception{
     return md.digest();
   }

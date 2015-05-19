@@ -52,6 +52,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
           <failOnError>false</failOnError>
+          <defaultAuthor>&lt;a href=&quot;https://github.com/ymnk&quot;"&gt;Atsuhiko Yamanaka&lt;/a&gt;</defaultAuthor>
           <additionalparam>-Xdoclint:none</additionalparam>
         </configuration>
         <executions>

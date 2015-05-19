@@ -32,6 +32,12 @@ package com.jcraft.jsch.jce;
 import java.security.*;
 import java.security.interfaces.*;
 
+/**
+ * <p>KeyPairGenRSA class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class KeyPairGenRSA implements com.jcraft.jsch.KeyPairGenRSA{
   byte[] d;  // private
   byte[] e;  // public
@@ -43,6 +49,7 @@ public class KeyPairGenRSA implements com.jcraft.jsch.KeyPairGenRSA{
   byte[] p;  // prime p
   byte[] q;  // prime q
 
+  /** {@inheritDoc} */
   public void init(int key_size) throws Exception{
     KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
     keyGen.initialize(key_size, new SecureRandom());
@@ -61,12 +68,52 @@ public class KeyPairGenRSA implements com.jcraft.jsch.KeyPairGenRSA{
     p=((RSAPrivateCrtKey)prvKey).getPrimeP().toByteArray();
     q=((RSAPrivateCrtKey)prvKey).getPrimeQ().toByteArray();
   }
+  /**
+   * <p>Getter for the field <code>d</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getD(){return d;}
+  /**
+   * <p>Getter for the field <code>e</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getE(){return e;}
+  /**
+   * <p>Getter for the field <code>n</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getN(){return n;}
+  /**
+   * <p>Getter for the field <code>c</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getC(){return c;}
+  /**
+   * <p>getEP.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getEP(){return ep;}
+  /**
+   * <p>getEQ.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getEQ(){return eq;}
+  /**
+   * <p>Getter for the field <code>p</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getP(){return p;}
+  /**
+   * <p>Getter for the field <code>q</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getQ(){return q;}
 }

@@ -30,7 +30,25 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package com.jcraft.jsch;
 import java.io.*;
 
+/**
+ * <p>ForwardedTCPIPDaemon interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface ForwardedTCPIPDaemon extends Runnable{
+  /**
+   * <p>setChannel.</p>
+   *
+   * @param channel a {@link com.jcraft.jsch.ChannelForwardedTCPIP} object.
+   * @param in a {@link java.io.InputStream} object.
+   * @param out a {@link java.io.OutputStream} object.
+   */
   void setChannel(ChannelForwardedTCPIP channel, InputStream in, OutputStream out);
+  /**
+   * <p>setArg.</p>
+   *
+   * @param arg an array of {@link java.lang.Object} objects.
+   */
   void setArg(Object[] arg);
 }

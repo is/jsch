@@ -33,15 +33,33 @@ import java.math.BigInteger;
 import java.security.*;
 import java.security.spec.*;
 
+/**
+ * <p>SignatureRSA class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class SignatureRSA implements com.jcraft.jsch.SignatureRSA{
 
   java.security.Signature signature;
   KeyFactory keyFactory;
 
+  /**
+   * <p>init.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   public void init() throws Exception{
     signature=java.security.Signature.getInstance("SHA1withRSA");
     keyFactory=KeyFactory.getInstance("RSA");
   }     
+  /**
+   * <p>setPubKey.</p>
+   *
+   * @param e an array of byte.
+   * @param n an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void setPubKey(byte[] e, byte[] n) throws Exception{
     RSAPublicKeySpec rsaPubKeySpec = 
 	new RSAPublicKeySpec(new BigInteger(n),
@@ -49,6 +67,13 @@ public class SignatureRSA implements com.jcraft.jsch.SignatureRSA{
     PublicKey pubKey=keyFactory.generatePublic(rsaPubKeySpec);
     signature.initVerify(pubKey);
   }
+  /**
+   * <p>setPrvKey.</p>
+   *
+   * @param d an array of byte.
+   * @param n an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void setPrvKey(byte[] d, byte[] n) throws Exception{
     RSAPrivateKeySpec rsaPrivKeySpec = 
 	new RSAPrivateKeySpec(new BigInteger(n),
@@ -56,13 +81,32 @@ public class SignatureRSA implements com.jcraft.jsch.SignatureRSA{
     PrivateKey prvKey = keyFactory.generatePrivate(rsaPrivKeySpec);
     signature.initSign(prvKey);
   }
+  /**
+   * <p>sign.</p>
+   *
+   * @return an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public byte[] sign() throws Exception{
     byte[] sig=signature.sign();      
     return sig;
   }
+  /**
+   * <p>update.</p>
+   *
+   * @param foo an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void update(byte[] foo) throws Exception{
    signature.update(foo);
   }
+  /**
+   * <p>verify.</p>
+   *
+   * @param sig an array of byte.
+   * @return a boolean.
+   * @throws java.lang.Exception if any.
+   */
   public boolean verify(byte[] sig) throws Exception{
     int i=0;
     int j=0;

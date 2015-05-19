@@ -29,12 +29,53 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>Cipher interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface Cipher{
+  /** Constant <code>ENCRYPT_MODE=0</code> */
   static int ENCRYPT_MODE=0;
+  /** Constant <code>DECRYPT_MODE=1</code> */
   static int DECRYPT_MODE=1;
+  /**
+   * <p>getIVSize.</p>
+   *
+   * @return a int.
+   */
   int getIVSize(); 
+  /**
+   * <p>getBlockSize.</p>
+   *
+   * @return a int.
+   */
   int getBlockSize(); 
+  /**
+   * <p>init.</p>
+   *
+   * @param mode a int.
+   * @param key an array of byte.
+   * @param iv an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   void init(int mode, byte[] key, byte[] iv) throws Exception; 
+  /**
+   * <p>update.</p>
+   *
+   * @param foo an array of byte.
+   * @param s1 a int.
+   * @param len a int.
+   * @param bar an array of byte.
+   * @param s2 a int.
+   * @throws java.lang.Exception if any.
+   */
   void update(byte[] foo, int s1, int len, byte[] bar, int s2) throws Exception;
+  /**
+   * <p>isCBC.</p>
+   *
+   * @return a boolean.
+   */
   boolean isCBC();
 }

@@ -29,11 +29,49 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>DH interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface DH{
+  /**
+   * <p>init.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   void init() throws Exception;
+  /**
+   * <p>setP.</p>
+   *
+   * @param p an array of byte.
+   */
   void setP(byte[] p);
+  /**
+   * <p>setG.</p>
+   *
+   * @param g an array of byte.
+   */
   void setG(byte[] g);
+  /**
+   * <p>getE.</p>
+   *
+   * @return an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   byte[] getE() throws Exception;
+  /**
+   * <p>setF.</p>
+   *
+   * @param f an array of byte.
+   */
   void setF(byte[] f);
+  /**
+   * <p>getK.</p>
+   *
+   * @return an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   byte[] getK() throws Exception;
 }

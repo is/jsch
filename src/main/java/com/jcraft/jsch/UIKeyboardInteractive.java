@@ -29,7 +29,23 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>UIKeyboardInteractive interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface UIKeyboardInteractive{
+  /**
+   * <p>promptKeyboardInteractive.</p>
+   *
+   * @param destination a {@link java.lang.String} object.
+   * @param name a {@link java.lang.String} object.
+   * @param instruction a {@link java.lang.String} object.
+   * @param prompt an array of {@link java.lang.String} objects.
+   * @param echo an array of boolean.
+   * @return an array of {@link java.lang.String} objects.
+   */
   String[] promptKeyboardInteractive(String destination,
 				     String name,
 				     String instruction,

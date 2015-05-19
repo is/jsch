@@ -29,11 +29,50 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>UserInfo interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface UserInfo{
+  /**
+   * <p>getPassphrase.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   String getPassphrase();
+  /**
+   * <p>getPassword.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   String getPassword();
+  /**
+   * <p>promptPassword.</p>
+   *
+   * @param message a {@link java.lang.String} object.
+   * @return a boolean.
+   */
   boolean promptPassword(String message);
+  /**
+   * <p>promptPassphrase.</p>
+   *
+   * @param message a {@link java.lang.String} object.
+   * @return a boolean.
+   */
   boolean promptPassphrase(String message);
+  /**
+   * <p>promptYesNo.</p>
+   *
+   * @param message a {@link java.lang.String} object.
+   * @return a boolean.
+   */
   boolean promptYesNo(String message);
+  /**
+   * <p>showMessage.</p>
+   *
+   * @param message a {@link java.lang.String} object.
+   */
   void showMessage(String message);
 }

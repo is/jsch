@@ -29,6 +29,12 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>KeyPairRSA class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class KeyPairRSA extends KeyPair{
   private byte[] prv_array;
   private byte[] pub_array;
@@ -43,6 +49,11 @@ public class KeyPairRSA extends KeyPair{
   //private int key_size=0;
   private int key_size=1024;
 
+  /**
+   * <p>Constructor for KeyPairRSA.</p>
+   *
+   * @param jsch a {@link com.jcraft.jsch.JSch} object.
+   */
   public KeyPairRSA(JSch jsch){
     super(jsch);
   }
@@ -293,6 +304,11 @@ System.err.println("");
   }
 
 
+  /**
+   * <p>getPublicKeyBlob.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getPublicKeyBlob(){
     byte[] foo=super.getPublicKeyBlob();
     if(foo!=null) return foo;
@@ -310,9 +326,22 @@ System.err.println("");
 
   private static final byte[] sshrsa=Util.str2byte("ssh-rsa");
   byte[] getKeyTypeName(){return sshrsa;}
+  /**
+   * <p>getKeyType.</p>
+   *
+   * @return a int.
+   */
   public int getKeyType(){return RSA;}
 
+  /**
+   * <p>getKeySize.</p>
+   *
+   * @return a int.
+   */
   public int getKeySize(){return key_size; }
+  /**
+   * <p>dispose.</p>
+   */
   public void dispose(){
     super.dispose();
     Util.bzero(prv_array);

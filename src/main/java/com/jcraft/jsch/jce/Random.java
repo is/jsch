@@ -31,9 +31,18 @@ package com.jcraft.jsch.jce;
 
 import java.security.SecureRandom;
 
+/**
+ * <p>Random class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class Random implements com.jcraft.jsch.Random{
   private byte[] tmp=new byte[16];
   private SecureRandom random=null;
+  /**
+   * <p>Constructor for Random.</p>
+   */
   public Random(){
 
     // We hope that 'new SecureRandom()' will use NativePRNG algorithm
@@ -66,6 +75,7 @@ public class Random implements com.jcraft.jsch.Random{
     }
     */
   }
+  /** {@inheritDoc} */
   public void fill(byte[] foo, int start, int len){
     /*
     // This case will not become true in our usage.

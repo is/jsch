@@ -29,9 +29,39 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>HASH interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface HASH{
+  /**
+   * <p>init.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   void init() throws Exception;
+  /**
+   * <p>getBlockSize.</p>
+   *
+   * @return a int.
+   */
   int getBlockSize();
+  /**
+   * <p>update.</p>
+   *
+   * @param foo an array of byte.
+   * @param start a int.
+   * @param len a int.
+   * @throws java.lang.Exception if any.
+   */
   void update(byte[] foo, int start, int len) throws Exception;
+  /**
+   * <p>digest.</p>
+   *
+   * @return an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   byte[] digest() throws Exception;
 }

@@ -31,7 +31,13 @@ package com.jcraft.jsch;
 
 class RequestSignal extends Request{
   private String signal="KILL";
+  /**
+   * <p>Setter for the field <code>signal</code>.</p>
+   *
+   * @param foo a {@link java.lang.String} object.
+   */
   public void setSignal(String foo){ signal=foo; }
+  /** {@inheritDoc} */
   public void request(Session session, Channel channel) throws Exception{
     super.request(session, channel);
 

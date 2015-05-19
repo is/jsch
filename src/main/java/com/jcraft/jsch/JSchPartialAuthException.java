@@ -32,13 +32,26 @@ package com.jcraft.jsch;
 class JSchPartialAuthException extends JSchException{
   //private static final long serialVersionUID=-378849862323360367L;
   String methods;
+  /**
+   * <p>Constructor for JSchPartialAuthException.</p>
+   */
   public JSchPartialAuthException () {
     super();
   }
+  /**
+   * <p>Constructor for JSchPartialAuthException.</p>
+   *
+   * @param s a {@link java.lang.String} object.
+   */
   public JSchPartialAuthException (String s) {
     super(s);
     this.methods=s;
   }
+  /**
+   * <p>Getter for the field <code>methods</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getMethods(){
     return methods;
   }

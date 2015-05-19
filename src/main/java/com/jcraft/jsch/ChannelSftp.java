@@ -33,6 +33,12 @@ import java.io.*;
 
 import java.util.Vector;
 
+/**
+ * <p>ChannelSftp class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class ChannelSftp extends ChannelSession{
 
   private static final byte SSH_FXP_INIT=               1;
@@ -77,14 +83,23 @@ public class ChannelSftp extends ChannelSession{
   private static final int SSH_FILEXFER_ATTR_ACMODTIME=    0x00000008;
   private static final int SSH_FILEXFER_ATTR_EXTENDED=     0x80000000;
 
+  /** Constant <code>SSH_FX_OK=0</code> */
   public static final int SSH_FX_OK=                            0;
+  /** Constant <code>SSH_FX_EOF=1</code> */
   public static final int SSH_FX_EOF=                           1;
+  /** Constant <code>SSH_FX_NO_SUCH_FILE=2</code> */
   public static final int SSH_FX_NO_SUCH_FILE=                  2;
+  /** Constant <code>SSH_FX_PERMISSION_DENIED=3</code> */
   public static final int SSH_FX_PERMISSION_DENIED=             3;
+  /** Constant <code>SSH_FX_FAILURE=4</code> */
   public static final int SSH_FX_FAILURE=                       4;
+  /** Constant <code>SSH_FX_BAD_MESSAGE=5</code> */
   public static final int SSH_FX_BAD_MESSAGE=                   5;
+  /** Constant <code>SSH_FX_NO_CONNECTION=6</code> */
   public static final int SSH_FX_NO_CONNECTION=                 6;
+  /** Constant <code>SSH_FX_CONNECTION_LOST=7</code> */
   public static final int SSH_FX_CONNECTION_LOST=               7;
+  /** Constant <code>SSH_FX_OP_UNSUPPORTED=8</code> */
   public static final int SSH_FX_OP_UNSUPPORTED=                8;
 /*
    SSH_FX_OK
@@ -124,8 +139,11 @@ public class ChannelSftp extends ChannelSession{
 */
   private static final int MAX_MSG_LENGTH = 256* 1024;
 
+  /** Constant <code>OVERWRITE=0</code> */
   public static final int OVERWRITE=0;
+  /** Constant <code>RESUME=1</code> */
   public static final int RESUME=1;
+  /** Constant <code>APPEND=2</code> */
   public static final int APPEND=2;
 
   private boolean interactive=false;
@@ -172,6 +190,11 @@ public class ChannelSftp extends ChannelSession{
   void init(){
   }
 
+  /**
+   * <p>start.</p>
+   *
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void start() throws JSchException{
     try{
 
@@ -244,8 +267,20 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>quit.</p>
+   */
   public void quit(){ disconnect();}
+  /**
+   * <p>exit.</p>
+   */
   public void exit(){ disconnect();}
+  /**
+   * <p>lcd.</p>
+   *
+   * @param path a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void lcd(String path) throws SftpException{
     path=localAbsolutePath(path);
     if((new File(path)).isDirectory()){
@@ -259,6 +294,12 @@ public class ChannelSftp extends ChannelSession{
     throw new SftpException(SSH_FX_NO_SUCH_FILE, "No such directory");
   }
 
+  /**
+   * <p>cd.</p>
+   *
+   * @param path a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void cd(String path) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -287,16 +328,48 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>put.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param dst a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void put(String src, String dst) throws SftpException{
     put(src, dst, null, OVERWRITE);
   }
+  /**
+   * <p>put.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param dst a {@link java.lang.String} object.
+   * @param mode a int.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void put(String src, String dst, int mode) throws SftpException{
     put(src, dst, null, mode);
   }
+  /**
+   * <p>put.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param dst a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void put(String src, String dst, 
 		  SftpProgressMonitor monitor) throws SftpException{
     put(src, dst, monitor, OVERWRITE);
   }
+  /**
+   * <p>put.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param dst a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @param mode a int.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void put(String src, String dst, 
 		  SftpProgressMonitor monitor, int mode) throws SftpException{
     src=localAbsolutePath(src);
@@ -401,16 +474,48 @@ public class ChannelSftp extends ChannelSession{
       throw new SftpException(SSH_FX_FAILURE, e.toString());
     }
   }
+  /**
+   * <p>put.</p>
+   *
+   * @param src a {@link java.io.InputStream} object.
+   * @param dst a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void put(InputStream src, String dst) throws SftpException{
     put(src, dst, null, OVERWRITE);
   }
+  /**
+   * <p>put.</p>
+   *
+   * @param src a {@link java.io.InputStream} object.
+   * @param dst a {@link java.lang.String} object.
+   * @param mode a int.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void put(InputStream src, String dst, int mode) throws SftpException{
     put(src, dst, null, mode);
   }
+  /**
+   * <p>put.</p>
+   *
+   * @param src a {@link java.io.InputStream} object.
+   * @param dst a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void put(InputStream src, String dst, 
 		  SftpProgressMonitor monitor) throws SftpException{
     put(src, dst, monitor, OVERWRITE);
   }
+  /**
+   * <p>put.</p>
+   *
+   * @param src a {@link java.io.InputStream} object.
+   * @param dst a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @param mode a int.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void put(InputStream src, String dst, 
 		  SftpProgressMonitor monitor, int mode) throws SftpException{
     try{
@@ -445,6 +550,15 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>_put.</p>
+   *
+   * @param src a {@link java.io.InputStream} object.
+   * @param dst a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @param mode a int.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void _put(InputStream src, String dst, 
 		  SftpProgressMonitor monitor, int mode) throws SftpException{
     try{
@@ -579,15 +693,49 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>put.</p>
+   *
+   * @param dst a {@link java.lang.String} object.
+   * @return a {@link java.io.OutputStream} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public OutputStream put(String dst) throws SftpException{
     return put(dst, (SftpProgressMonitor)null, OVERWRITE);
   }
+  /**
+   * <p>put.</p>
+   *
+   * @param dst a {@link java.lang.String} object.
+   * @param mode a int.
+   * @return a {@link java.io.OutputStream} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public OutputStream put(String dst, final int mode) throws SftpException{
     return put(dst, (SftpProgressMonitor)null, mode);
   }
+  /**
+   * <p>put.</p>
+   *
+   * @param dst a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @param mode a int.
+   * @return a {@link java.io.OutputStream} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public OutputStream put(String dst, final SftpProgressMonitor monitor, final int mode) throws SftpException{
     return put(dst, monitor, mode, 0);
   }
+  /**
+   * <p>put.</p>
+   *
+   * @param dst a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @param mode a int.
+   * @param offset a long.
+   * @return a {@link java.io.OutputStream} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public OutputStream put(String dst, final SftpProgressMonitor monitor, final int mode, long offset) throws SftpException{
     dst=remoteAbsolutePath(dst);
     try{
@@ -745,13 +893,37 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param dst a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void get(String src, String dst) throws SftpException{
     get(src, dst, null, OVERWRITE);
   }
+  /**
+   * <p>get.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param dst a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void get(String src, String dst,
 		  SftpProgressMonitor monitor) throws SftpException{
     get(src, dst, monitor, OVERWRITE);
   }
+  /**
+   * <p>get.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param dst a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @param mode a int.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void get(String src, String dst,
 		  SftpProgressMonitor monitor, int mode) throws SftpException{
     // System.out.println("get: "+src+" "+dst);
@@ -854,13 +1026,38 @@ public class ChannelSftp extends ChannelSession{
       throw new SftpException(SSH_FX_FAILURE, "");
     }
   }
+  /**
+   * <p>get.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param dst a {@link java.io.OutputStream} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void get(String src, OutputStream dst) throws SftpException{
     get(src, dst, null, OVERWRITE, 0);
   }
+  /**
+   * <p>get.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param dst a {@link java.io.OutputStream} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void get(String src, OutputStream dst,
 		  SftpProgressMonitor monitor) throws SftpException{
     get(src, dst, monitor, OVERWRITE, 0);
   }
+  /**
+   * <p>get.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param dst a {@link java.io.OutputStream} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @param mode a int.
+   * @param skip a long.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void get(String src, OutputStream dst,
 		   SftpProgressMonitor monitor, int mode, long skip) throws SftpException{
 //System.err.println("get: "+src+", "+dst);
@@ -991,25 +1188,62 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @return a {@link java.io.InputStream} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public InputStream get(String src) throws SftpException{
     return get(src, null, 0L);
   }
+  /**
+   * <p>get.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @return a {@link java.io.InputStream} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public InputStream get(String src, SftpProgressMonitor monitor) throws SftpException{
     return get(src, monitor, 0L);
   }
 
   /**
+   * <p>get.</p>
+   *
    * @deprecated  This method will be deleted in the future.
+   * @param src a {@link java.lang.String} object.
+   * @param mode a int.
+   * @return a {@link java.io.InputStream} object.
+   * @throws com.jcraft.jsch.SftpException if any.
    */
   public InputStream get(String src, int mode) throws SftpException{
     return get(src, null, 0L);
   }
   /**
+   * <p>get.</p>
+   *
    * @deprecated  This method will be deleted in the future.
+   * @param src a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @param mode a int.
+   * @return a {@link java.io.InputStream} object.
+   * @throws com.jcraft.jsch.SftpException if any.
    */
   public InputStream get(String src, final SftpProgressMonitor monitor, final int mode) throws SftpException{
     return get(src, monitor, 0L);
   }
+  /**
+   * <p>get.</p>
+   *
+   * @param src a {@link java.lang.String} object.
+   * @param monitor a {@link com.jcraft.jsch.SftpProgressMonitor} object.
+   * @param skip a long.
+   * @return a {@link java.io.InputStream} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public InputStream get(String src, final SftpProgressMonitor monitor, final long skip) throws SftpException{
     src=remoteAbsolutePath(src);
     try{
@@ -1179,6 +1413,13 @@ public class ChannelSftp extends ChannelSession{
      }
    }
 
+   /**
+    * <p>ls.</p>
+    *
+    * @param path a {@link java.lang.String} object.
+    * @return a java$util$Vector object.
+    * @throws com.jcraft.jsch.SftpException if any.
+    */
    public java.util.Vector ls(String path) throws SftpException{
      //System.out.println("ls: "+path);
      try{
@@ -1354,6 +1595,13 @@ public class ChannelSftp extends ChannelSession{
        throw new SftpException(SSH_FX_FAILURE, "");
      }
    }
+   /**
+    * <p>readlink.</p>
+    *
+    * @param path a {@link java.lang.String} object.
+    * @return a {@link java.lang.String} object.
+    * @throws com.jcraft.jsch.SftpException if any.
+    */
    public String readlink(String path) throws SftpException{
      try{
 
@@ -1402,6 +1650,13 @@ public class ChannelSftp extends ChannelSession{
      }
      return null;
    }
+   /**
+    * <p>symlink.</p>
+    *
+    * @param oldpath a {@link java.lang.String} object.
+    * @param newpath a {@link java.lang.String} object.
+    * @throws com.jcraft.jsch.SftpException if any.
+    */
    public void symlink(String oldpath, String newpath) throws SftpException{
      if(server_version<3){
        throw new SftpException(SSH_FX_OP_UNSUPPORTED, 
@@ -1445,6 +1700,13 @@ public class ChannelSftp extends ChannelSession{
      }
    }
 
+   /**
+    * <p>rename.</p>
+    *
+    * @param oldpath a {@link java.lang.String} object.
+    * @param newpath a {@link java.lang.String} object.
+    * @throws com.jcraft.jsch.SftpException if any.
+    */
    public void rename(String oldpath, String newpath) throws SftpException{
      if(server_version<2){
        throw new SftpException(SSH_FX_OP_UNSUPPORTED, 
@@ -1496,6 +1758,12 @@ public class ChannelSftp extends ChannelSession{
       throw new SftpException(SSH_FX_FAILURE, "");
     }
   }
+  /**
+   * <p>rm.</p>
+   *
+   * @param path a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void rm(String path) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -1553,6 +1821,13 @@ public class ChannelSftp extends ChannelSession{
     return false;
   }
 
+  /**
+   * <p>chgrp.</p>
+   *
+   * @param gid a int.
+   * @param path a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void chgrp(int gid, String path) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -1577,6 +1852,13 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>chown.</p>
+   *
+   * @param uid a int.
+   * @param path a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void chown(int uid, String path) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -1601,6 +1883,13 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>chmod.</p>
+   *
+   * @param permissions a int.
+   * @param path a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void chmod(int permissions, String path) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -1625,6 +1914,13 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>setMtime.</p>
+   *
+   * @param path a {@link java.lang.String} object.
+   * @param mtime a int.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void setMtime(String path, int mtime) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -1649,6 +1945,12 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>rmdir.</p>
+   *
+   * @param path a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void rmdir(String path) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -1686,6 +1988,12 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>mkdir.</p>
+   *
+   * @param path a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void mkdir(String path) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -1715,6 +2023,13 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>stat.</p>
+   *
+   * @param path a {@link java.lang.String} object.
+   * @return a {@link com.jcraft.jsch.SftpATTRS} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public SftpATTRS stat(String path) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -1767,6 +2082,13 @@ public class ChannelSftp extends ChannelSession{
     return _stat(Util.str2byte(path, fEncoding));
   }
 
+  /**
+   * <p>lstat.</p>
+   *
+   * @param path a {@link java.lang.String} object.
+   * @return a {@link com.jcraft.jsch.SftpATTRS} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public SftpATTRS lstat(String path) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -1843,6 +2165,13 @@ public class ChannelSftp extends ChannelSession{
     return str;
   }
 
+  /**
+   * <p>setStat.</p>
+   *
+   * @param path a {@link java.lang.String} object.
+   * @param attr a {@link com.jcraft.jsch.SftpATTRS} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void setStat(String path, SftpATTRS attr) throws SftpException{
     try{
       path=remoteAbsolutePath(path);
@@ -1888,9 +2217,31 @@ public class ChannelSftp extends ChannelSession{
     }
   }
 
+  /**
+   * <p>pwd.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public String pwd() throws SftpException{ return getCwd(); }
+  /**
+   * <p>lpwd.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String lpwd(){ return lcwd; }
+  /**
+   * <p>version.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String version(){ return version; }
+  /**
+   * <p>Getter for the field <code>home</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public String getHome() throws SftpException {
     if(home==null){
       try{
@@ -2305,6 +2656,9 @@ public class ChannelSftp extends ChannelSession{
     return (new File(path)).isAbsolute();
   }
 
+  /**
+   * <p>disconnect.</p>
+   */
   public void disconnect(){
     super.disconnect();
   }
@@ -2391,6 +2745,12 @@ public class ChannelSftp extends ChannelSession{
     return (String)(v.elementAt(0));
   }
 
+  /**
+   * <p>getServerVersion.</p>
+   *
+   * @return a int.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public int getServerVersion() throws SftpException{
     if(!isConnected()){
       throw new SftpException(SSH_FX_FAILURE, "The channel is not connected.");
@@ -2398,6 +2758,12 @@ public class ChannelSftp extends ChannelSession{
     return server_version;
   }
 
+  /**
+   * <p>setFilenameEncoding.</p>
+   *
+   * @param encoding a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public void setFilenameEncoding(String encoding) throws SftpException{
     int sversion=getServerVersion();
     if(sversion > 3 && 
@@ -2412,12 +2778,25 @@ public class ChannelSftp extends ChannelSession{
     fEncoding_is_utf8=fEncoding.equals(UTF8);
   }
 
+  /**
+   * <p>getExtension.</p>
+   *
+   * @param key a {@link java.lang.String} object.
+   * @return a {@link java.lang.String} object.
+   */
   public String getExtension(String key){
     if(extensions==null)
       return null;
     return (String)extensions.get(key);
   }
 
+  /**
+   * <p>realpath.</p>
+   *
+   * @param path a {@link java.lang.String} object.
+   * @return a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.SftpException if any.
+   */
   public String realpath(String path) throws SftpException{
     try{
       byte[] _path=_realpath(remoteAbsolutePath(path));

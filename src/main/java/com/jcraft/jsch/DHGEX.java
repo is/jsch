@@ -29,6 +29,12 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>DHGEX class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class DHGEX extends KeyExchange{
 
   private static final int SSH_MSG_KEX_DH_GEX_GROUP=               31;
@@ -67,6 +73,16 @@ public class DHGEX extends KeyExchange{
   private byte[] e;
   //private byte[] f;
 
+  /**
+   * <p>init.</p>
+   *
+   * @param session a {@link com.jcraft.jsch.Session} object.
+   * @param V_S an array of byte.
+   * @param V_C an array of byte.
+   * @param I_S an array of byte.
+   * @param I_C an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void init(Session session,
 		   byte[] V_S, byte[] V_C, byte[] I_S, byte[] I_C) throws Exception{
     this.session=session;
@@ -114,6 +130,7 @@ public class DHGEX extends KeyExchange{
     state=SSH_MSG_KEX_DH_GEX_GROUP;
   }
 
+  /** {@inheritDoc} */
   public boolean next(Buffer _buf) throws Exception{
     int i,j;
     switch(state){
@@ -331,10 +348,21 @@ System.err.println("0x"+Integer.toHexString(g[iii]&0xff)+",");
     return false;
   }
 
+  /**
+   * <p>getKeyType.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   * @since 0.1.53
+   */
   public String getKeyType(){
     if(type==DSS) return "DSA";
     return "RSA";
   }
 
+  /**
+   * <p>Getter for the field <code>state</code>.</p>
+   *
+   * @return a int.
+   */
   public int getState(){return state; }
 }

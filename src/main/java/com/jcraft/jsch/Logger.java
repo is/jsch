@@ -29,16 +29,39 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>Logger interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface Logger{
 
+  /** Constant <code>DEBUG=0</code> */
   public final int DEBUG=0;
+  /** Constant <code>INFO=1</code> */
   public final int INFO=1;
+  /** Constant <code>WARN=2</code> */
   public final int WARN=2;
+  /** Constant <code>ERROR=3</code> */
   public final int ERROR=3;
+  /** Constant <code>FATAL=4</code> */
   public final int FATAL=4;
 
+  /**
+   * <p>isEnabled.</p>
+   *
+   * @param level a int.
+   * @return a boolean.
+   */
   public boolean isEnabled(int level);
 
+  /**
+   * <p>log.</p>
+   *
+   * @param level a int.
+   * @param message a {@link java.lang.String} object.
+   */
   public void log(int level, String message);
 
   /*

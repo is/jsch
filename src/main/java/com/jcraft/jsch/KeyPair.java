@@ -33,10 +33,20 @@ import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.File;
 
+/**
+ * <p>Abstract KeyPair class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public abstract class KeyPair{
+  /** Constant <code>ERROR=0</code> */
   public static final int ERROR=0;
+  /** Constant <code>DSA=1</code> */
   public static final int DSA=1;
+  /** Constant <code>RSA=2</code> */
   public static final int RSA=2;
+  /** Constant <code>UNKNOWN=3</code> */
   public static final int UNKNOWN=3;
 
   static final int VENDOR_OPENSSH=0;
@@ -45,9 +55,26 @@ public abstract class KeyPair{
 
   private static final byte[] cr=Util.str2byte("\n");
 
+  /**
+   * <p>genKeyPair.</p>
+   *
+   * @param jsch a {@link com.jcraft.jsch.JSch} object.
+   * @param type a int.
+   * @return a {@link com.jcraft.jsch.KeyPair} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public static KeyPair genKeyPair(JSch jsch, int type) throws JSchException{
     return genKeyPair(jsch, type, 1024);
   }
+  /**
+   * <p>genKeyPair.</p>
+   *
+   * @param jsch a {@link com.jcraft.jsch.JSch} object.
+   * @param type a int.
+   * @param key_size a int.
+   * @return a {@link com.jcraft.jsch.KeyPair} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public static KeyPair genKeyPair(JSch jsch, int type, int key_size) throws JSchException{
     KeyPair kpair=null;
     if(type==DSA){ kpair=new KeyPairDSA(jsch); }
@@ -71,6 +98,11 @@ public abstract class KeyPair{
 
   private byte[] passphrase;
 
+  /**
+   * <p>Constructor for KeyPair.</p>
+   *
+   * @param jsch a {@link com.jcraft.jsch.JSch} object.
+   */
   public KeyPair(JSch jsch){
     this.jsch=jsch;
   }
@@ -80,6 +112,11 @@ public abstract class KeyPair{
 
   abstract byte[] getPrivateKey();
 
+  /**
+   * <p>writePrivateKey.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   */
   public void writePrivateKey(java.io.OutputStream out){
     byte[] plain=getPrivateKey();
     byte[][] _iv=new byte[1][];
@@ -123,10 +160,26 @@ public abstract class KeyPair{
   private static byte[] space=Util.str2byte(" ");
 
   abstract byte[] getKeyTypeName();
+  /**
+   * <p>getKeyType.</p>
+   *
+   * @return a int.
+   */
   public abstract int getKeyType();
 
+  /**
+   * <p>getPublicKeyBlob.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getPublicKeyBlob(){ return publickeyblob; }
 
+  /**
+   * <p>writePublicKey.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   * @param comment a {@link java.lang.String} object.
+   */
   public void writePublicKey(java.io.OutputStream out, String comment){
     byte[] pubblob=getPublicKeyBlob();
     byte[] pub=Util.toBase64(pubblob, 0, pubblob.length);
@@ -140,12 +193,26 @@ public abstract class KeyPair{
     }
   }
 
+  /**
+   * <p>writePublicKey.</p>
+   *
+   * @param name a {@link java.lang.String} object.
+   * @param comment a {@link java.lang.String} object.
+   * @throws java.io.FileNotFoundException if any.
+   * @throws java.io.IOException if any.
+   */
   public void writePublicKey(String name, String comment) throws java.io.FileNotFoundException, java.io.IOException{
     FileOutputStream fos=new FileOutputStream(name);
     writePublicKey(fos, comment);
     fos.close();
   }
 
+  /**
+   * <p>writeSECSHPublicKey.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   * @param comment a {@link java.lang.String} object.
+   */
   public void writeSECSHPublicKey(java.io.OutputStream out, String comment){
     byte[] pubblob=getPublicKeyBlob();
     byte[] pub=Util.toBase64(pubblob, 0, pubblob.length);
@@ -165,6 +232,14 @@ public abstract class KeyPair{
     }
   }
 
+  /**
+   * <p>writeSECSHPublicKey.</p>
+   *
+   * @param name a {@link java.lang.String} object.
+   * @param comment a {@link java.lang.String} object.
+   * @throws java.io.FileNotFoundException if any.
+   * @throws java.io.IOException if any.
+   */
   public void writeSECSHPublicKey(String name, String comment) throws java.io.FileNotFoundException, java.io.IOException{
     FileOutputStream fos=new FileOutputStream(name);
     writeSECSHPublicKey(fos, comment);
@@ -172,12 +247,24 @@ public abstract class KeyPair{
   }
 
 
+  /**
+   * <p>writePrivateKey.</p>
+   *
+   * @param name a {@link java.lang.String} object.
+   * @throws java.io.FileNotFoundException if any.
+   * @throws java.io.IOException if any.
+   */
   public void writePrivateKey(String name) throws java.io.FileNotFoundException, java.io.IOException{
     FileOutputStream fos=new FileOutputStream(name);
     writePrivateKey(fos);
     fos.close();
   }
 
+  /**
+   * <p>getFingerPrint.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getFingerPrint(){
     if(hash==null) hash=genHash();
     byte[] kblob=getPublicKeyBlob();
@@ -359,6 +446,11 @@ public abstract class KeyPair{
     return key;
   } 
 
+  /**
+   * <p>Setter for the field <code>passphrase</code>.</p>
+   *
+   * @param passphrase a {@link java.lang.String} object.
+   */
   public void setPassphrase(String passphrase){
     if(passphrase==null || passphrase.length()==0){
       setPassphrase((byte[])null);
@@ -367,6 +459,11 @@ public abstract class KeyPair{
       setPassphrase(Util.str2byte(passphrase));
     }
   }
+  /**
+   * <p>Setter for the field <code>passphrase</code>.</p>
+   *
+   * @param passphrase an array of byte.
+   */
   public void setPassphrase(byte[] passphrase){
     if(passphrase!=null && passphrase.length==0) 
       passphrase=null;
@@ -378,13 +475,30 @@ public abstract class KeyPair{
   private byte[] iv=null;
   private byte[] publickeyblob=null;
 
+  /**
+   * <p>isEncrypted.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isEncrypted(){ return encrypted; }
+  /**
+   * <p>decrypt.</p>
+   *
+   * @param _passphrase a {@link java.lang.String} object.
+   * @return a boolean.
+   */
   public boolean decrypt(String _passphrase){
     if(_passphrase==null || _passphrase.length()==0){
       return !encrypted;
     }
     return decrypt(Util.str2byte(_passphrase));
   }
+  /**
+   * <p>decrypt.</p>
+   *
+   * @param _passphrase an array of byte.
+   * @return a boolean.
+   */
   public boolean decrypt(byte[] _passphrase){
     if(!encrypted){
       return true;
@@ -403,6 +517,14 @@ public abstract class KeyPair{
     return !encrypted;
   }
 
+  /**
+   * <p>load.</p>
+   *
+   * @param jsch a {@link com.jcraft.jsch.JSch} object.
+   * @param prvkey a {@link java.lang.String} object.
+   * @return a {@link com.jcraft.jsch.KeyPair} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public static KeyPair load(JSch jsch, String prvkey) throws JSchException{
     String pubkey=prvkey+".pub";
     if(!new File(pubkey).exists()){
@@ -410,6 +532,15 @@ public abstract class KeyPair{
     }
     return load(jsch, prvkey, pubkey);
   }
+  /**
+   * <p>load.</p>
+   *
+   * @param jsch a {@link com.jcraft.jsch.JSch} object.
+   * @param prvkey a {@link java.lang.String} object.
+   * @param pubkey a {@link java.lang.String} object.
+   * @return a {@link com.jcraft.jsch.KeyPair} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public static KeyPair load(JSch jsch, String prvkey, String pubkey) throws JSchException{
 
     byte[] iv=new byte[8];       // 8
@@ -655,10 +786,16 @@ public abstract class KeyPair{
     return (byte)(c-10+'A');
   }
 
+  /**
+   * <p>dispose.</p>
+   */
   public void dispose(){
     Util.bzero(passphrase);
   }
 
+  /**
+   * <p>finalize.</p>
+   */
   public void finalize (){
     dispose();
   }

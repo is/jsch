@@ -51,12 +51,28 @@ class HMAC{
 
   private int bsize=0;
 
+  /**
+   * <p>setH.</p>
+   *
+   * @param md a {@link java.security.MessageDigest} object.
+   */
   protected void setH(MessageDigest md){
     this.md=md;
     bsize=md.getDigestLength();
   }
 
+  /**
+   * <p>getBlockSize.</p>
+   *
+   * @return a int.
+   */
   public int getBlockSize(){return bsize;};
+  /**
+   * <p>init.</p>
+   *
+   * @param key an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void init(byte[] key) throws Exception{
     if(key.length>bsize){
       byte[] tmp=new byte[bsize];
@@ -85,6 +101,11 @@ class HMAC{
   }
 
   private final byte[] tmp=new byte[4];
+  /**
+   * <p>update.</p>
+   *
+   * @param i a int.
+   */
   public void update(int i){
     tmp[0]=(byte)(i>>>24);
     tmp[1]=(byte)(i>>>16);
@@ -93,10 +114,23 @@ class HMAC{
     update(tmp, 0, 4);
   }
 
+  /**
+   * <p>update.</p>
+   *
+   * @param foo an array of byte.
+   * @param s a int.
+   * @param l a int.
+   */
   public void update(byte foo[], int s, int l){
     md.update(foo, s, l);
   }
 
+  /**
+   * <p>doFinal.</p>
+   *
+   * @param buf an array of byte.
+   * @param offset a int.
+   */
   public void doFinal(byte[] buf, int offset){
     byte[] result=md.digest();
     md.update(k_opad, 0, B);

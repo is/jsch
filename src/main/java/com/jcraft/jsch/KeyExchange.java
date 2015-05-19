@@ -29,6 +29,12 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>Abstract KeyExchange class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public abstract class KeyExchange{
 
   static final int PROPOSAL_KEX_ALGS=0;
@@ -59,6 +65,7 @@ public abstract class KeyExchange{
   static String lang_c2s="";
   static String lang_s2c="";
 
+  /** Constant <code>STATE_END=0</code> */
   public static final int STATE_END=0;
 
   protected Session session=null;
@@ -67,10 +74,37 @@ public abstract class KeyExchange{
   protected byte[] H=null;
   protected byte[] K_S=null;
 
+  /**
+   * <p>init.</p>
+   *
+   * @param session a {@link com.jcraft.jsch.Session} object.
+   * @param V_S an array of byte.
+   * @param V_C an array of byte.
+   * @param I_S an array of byte.
+   * @param I_C an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public abstract void init(Session session, 
 			    byte[] V_S, byte[] V_C, byte[] I_S, byte[] I_C) throws Exception;
+  /**
+   * <p>next.</p>
+   *
+   * @param buf a {@link com.jcraft.jsch.Buffer} object.
+   * @return a boolean.
+   * @throws java.lang.Exception if any.
+   */
   public abstract boolean next(Buffer buf) throws Exception;
+  /**
+   * <p>getKeyType.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public abstract String getKeyType();
+  /**
+   * <p>getState.</p>
+   *
+   * @return a int.
+   */
   public abstract int getState();
 
   /*
@@ -84,6 +118,13 @@ public abstract class KeyExchange{
   } 
   */
 
+  /**
+   * <p>guess.</p>
+   *
+   * @param I_S an array of byte.
+   * @param I_C an array of byte.
+   * @return an array of {@link java.lang.String} objects.
+   */
   protected static String[] guess(byte[]I_S, byte[]I_C){
     String[] guess=new String[PROPOSAL_MAX];
     Buffer sb=new Buffer(I_S); sb.setOffSet(17);
@@ -143,6 +184,11 @@ public abstract class KeyExchange{
     return guess;
   }
 
+  /**
+   * <p>getFingerPrint.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getFingerPrint(){
     HASH hash=null;
     try{

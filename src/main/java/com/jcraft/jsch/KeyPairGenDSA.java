@@ -29,11 +29,48 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>KeyPairGenDSA interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface KeyPairGenDSA{
+  /**
+   * <p>init.</p>
+   *
+   * @param key_size a int.
+   * @throws java.lang.Exception if any.
+   */
   void init(int key_size) throws Exception;
+  /**
+   * <p>getX.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getX();
+  /**
+   * <p>getY.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getY();
+  /**
+   * <p>getP.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getP();
+  /**
+   * <p>getQ.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getQ();
+  /**
+   * <p>getG.</p>
+   *
+   * @return an array of byte.
+   */
   byte[] getG();
 }

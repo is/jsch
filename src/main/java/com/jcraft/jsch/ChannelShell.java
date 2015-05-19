@@ -31,6 +31,12 @@ package com.jcraft.jsch;
 
 import java.util.*;
 
+/**
+ * <p>ChannelShell class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class ChannelShell extends ChannelSession{
 
   ChannelShell(){
@@ -38,6 +44,11 @@ public class ChannelShell extends ChannelSession{
     pty=true;
   }
 
+  /**
+   * <p>start.</p>
+   *
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void start() throws JSchException{
     Session _session=getSession();
     try{

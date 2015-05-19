@@ -34,6 +34,12 @@ import java.security.*;
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
+/**
+ * <p>DH class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class DH implements com.jcraft.jsch.DH{
   BigInteger p;
   BigInteger g;
@@ -45,12 +51,23 @@ public class DH implements com.jcraft.jsch.DH{
 
   private KeyPairGenerator myKpairGen;
   private KeyAgreement myKeyAgree;
+  /**
+   * <p>init.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   public void init() throws Exception{
     myKpairGen=KeyPairGenerator.getInstance("DH");
 //    myKpairGen=KeyPairGenerator.getInstance("DiffieHellman");
     myKeyAgree=KeyAgreement.getInstance("DH");
 //    myKeyAgree=KeyAgreement.getInstance("DiffieHellman");
   }
+  /**
+   * <p>Getter for the field <code>e</code>.</p>
+   *
+   * @return an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public byte[] getE() throws Exception{
     if(e==null){
       DHParameterSpec dhSkipParamSpec=new DHParameterSpec(p, g);
@@ -64,6 +81,12 @@ public class DH implements com.jcraft.jsch.DH{
     }
     return e_array;
   }
+  /**
+   * <p>getK.</p>
+   *
+   * @return an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public byte[] getK() throws Exception{
     if(K==null){
       KeyFactory myKeyFac=KeyFactory.getInstance("DH");
@@ -82,8 +105,23 @@ public class DH implements com.jcraft.jsch.DH{
     }
     return K_array;
   }
+  /**
+   * <p>Setter for the field <code>p</code>.</p>
+   *
+   * @param p an array of byte.
+   */
   public void setP(byte[] p){ setP(new BigInteger(p)); }
+  /**
+   * <p>Setter for the field <code>g</code>.</p>
+   *
+   * @param g an array of byte.
+   */
   public void setG(byte[] g){ setG(new BigInteger(g)); }
+  /**
+   * <p>Setter for the field <code>f</code>.</p>
+   *
+   * @param f an array of byte.
+   */
   public void setF(byte[] f){ setF(new BigInteger(f)); }
   void setP(BigInteger p){this.p=p;}
   void setG(BigInteger g){this.g=g;}

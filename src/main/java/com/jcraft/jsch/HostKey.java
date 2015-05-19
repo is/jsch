@@ -29,12 +29,21 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>HostKey class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class HostKey{
   private static final byte[] sshdss=Util.str2byte("ssh-dss");
   private static final byte[] sshrsa=Util.str2byte("ssh-rsa");
 
+  /** Constant <code>GUESS=0</code> */
   protected static final int GUESS=0;
+  /** Constant <code>SSHDSS=1</code> */
   public static final int SSHDSS=1;
+  /** Constant <code>SSHRSA=2</code> */
   public static final int SSHRSA=2;
   static final int UNKNOWN=3;
 
@@ -42,10 +51,25 @@ public class HostKey{
   protected int type;
   protected byte[] key;
 
+  /**
+   * <p>Constructor for HostKey.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   * @param key an array of byte.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public HostKey(String host, byte[] key) throws JSchException {
     this(host, GUESS, key);
   }
 
+  /**
+   * <p>Constructor for HostKey.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   * @param type a int.
+   * @param key an array of byte.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public HostKey(String host, int type, byte[] key) throws JSchException {
     this.host=host; 
     if(type==GUESS){
@@ -59,15 +83,36 @@ public class HostKey{
     this.key=key;
   }
 
+  /**
+   * <p>Getter for the field <code>host</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getHost(){ return host; }
+  /**
+   * <p>Getter for the field <code>type</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getType(){
     if(type==SSHDSS){ return Util.byte2str(sshdss); }
     if(type==SSHRSA){ return Util.byte2str(sshrsa);}
     return "UNKNOWN";
   }
+  /**
+   * <p>Getter for the field <code>key</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getKey(){
     return Util.byte2str(Util.toBase64(key, 0, key.length));
   }
+  /**
+   * <p>getFingerPrint.</p>
+   *
+   * @param jsch a {@link com.jcraft.jsch.JSch} object.
+   * @return a {@link java.lang.String} object.
+   */
   public String getFingerPrint(JSch jsch){
     HASH hash=null;
     try{

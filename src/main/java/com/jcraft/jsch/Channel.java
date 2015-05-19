@@ -36,6 +36,12 @@ import java.io.OutputStream;
 import java.io.IOException;
 
 
+/**
+ * <p>Abstract Channel class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public abstract class Channel implements Runnable{
 
   static final int SSH_MSG_CHANNEL_OPEN_CONFIRMATION=      91;
@@ -140,10 +146,21 @@ public abstract class Channel implements Runnable{
   void init() throws JSchException {
   }
 
+  /**
+   * <p>connect.</p>
+   *
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void connect() throws JSchException{
     connect(0);
   }
 
+  /**
+   * <p>connect.</p>
+   *
+   * @param connectTimeout a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void connect(int connectTimeout) throws JSchException{
     Session _session=getSession();
     if(!_session.isConnected()){
@@ -208,11 +225,26 @@ public abstract class Channel implements Runnable{
     }
   }
 
+  /**
+   * <p>setXForwarding.</p>
+   *
+   * @param foo a boolean.
+   */
   public void setXForwarding(boolean foo){
   }
 
+  /**
+   * <p>start.</p>
+   *
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void start() throws JSchException{}
 
+  /**
+   * <p>isEOF.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isEOF() {return eof_remote;}
 
   void getData(Buffer buf){
@@ -221,24 +253,63 @@ public abstract class Channel implements Runnable{
     setRemotePacketSize(buf.getInt());
   }
 
+  /**
+   * <p>setInputStream.</p>
+   *
+   * @param in a {@link java.io.InputStream} object.
+   */
   public void setInputStream(InputStream in){
     io.setInputStream(in, false);
   }
+  /**
+   * <p>setInputStream.</p>
+   *
+   * @param in a {@link java.io.InputStream} object.
+   * @param dontclose a boolean.
+   */
   public void setInputStream(InputStream in, boolean dontclose){
     io.setInputStream(in, dontclose);
   }
+  /**
+   * <p>setOutputStream.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   */
   public void setOutputStream(OutputStream out){
     io.setOutputStream(out, false);
   }
+  /**
+   * <p>setOutputStream.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   * @param dontclose a boolean.
+   */
   public void setOutputStream(OutputStream out, boolean dontclose){
     io.setOutputStream(out, dontclose);
   }
+  /**
+   * <p>setExtOutputStream.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   */
   public void setExtOutputStream(OutputStream out){
     io.setExtOutputStream(out, false);
   }
+  /**
+   * <p>setExtOutputStream.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   * @param dontclose a boolean.
+   */
   public void setExtOutputStream(OutputStream out, boolean dontclose){
     io.setExtOutputStream(out, dontclose);
   }
+  /**
+   * <p>getInputStream.</p>
+   *
+   * @return a {@link java.io.InputStream} object.
+   * @throws java.io.IOException if any.
+   */
   public InputStream getInputStream() throws IOException {
     PipedInputStream in=
       new MyPipedInputStream(
@@ -247,6 +318,12 @@ public abstract class Channel implements Runnable{
     io.setOutputStream(new PassiveOutputStream(in), false);
     return in;
   }
+  /**
+   * <p>getExtInputStream.</p>
+   *
+   * @return a {@link java.io.InputStream} object.
+   * @throws java.io.IOException if any.
+   */
   public InputStream getExtInputStream() throws IOException {
     PipedInputStream in=
       new MyPipedInputStream(
@@ -255,6 +332,12 @@ public abstract class Channel implements Runnable{
     io.setExtOutputStream(new PassiveOutputStream(in), false);
     return in;
   }
+  /**
+   * <p>getOutputStream.</p>
+   *
+   * @return a {@link java.io.OutputStream} object.
+   * @throws java.io.IOException if any.
+   */
   public OutputStream getOutputStream() throws IOException {
     /*
     PipedOutputStream out=new PipedOutputStream();
@@ -384,6 +467,9 @@ public abstract class Channel implements Runnable{
   }
   void setRemotePacketSize(int foo){ this.rmpsize=foo; }
 
+  /**
+   * <p>run.</p>
+   */
   public void run(){
   }
 
@@ -488,6 +574,11 @@ public abstract class Channel implements Runnable{
       //e.printStackTrace();
     }
   }
+  /**
+   * <p>isClosed.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isClosed(){
     return close;
   }
@@ -512,6 +603,9 @@ public abstract class Channel implements Runnable{
     }
   }
 
+  /**
+   * <p>disconnect.</p>
+   */
   public void disconnect(){
     //System.err.println(this+":disconnect "+io+" "+connected);
     //Thread.dumpStack();
@@ -546,6 +640,11 @@ public abstract class Channel implements Runnable{
     }
   }
 
+  /**
+   * <p>isConnected.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isConnected(){
     Session _session=this.session;
     if(_session!=null){
@@ -554,6 +653,12 @@ public abstract class Channel implements Runnable{
     return false;
   }
 
+  /**
+   * <p>sendSignal.</p>
+   *
+   * @param signal a {@link java.lang.String} object.
+   * @throws java.lang.Exception if any.
+   */
   public void sendSignal(String signal) throws Exception {
     RequestSignal request=new RequestSignal();
     request.setSignal(signal);
@@ -596,12 +701,23 @@ public abstract class Channel implements Runnable{
   }
 
   void setExitStatus(int status){ exitstatus=status; }
+  /**
+   * <p>getExitStatus.</p>
+   *
+   * @return a int.
+   */
   public int getExitStatus(){ return exitstatus; }
 
   void setSession(Session session){
     this.session=session;
   }
 
+  /**
+   * <p>Getter for the field <code>session</code>.</p>
+   *
+   * @return a {@link com.jcraft.jsch.Session} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public Session getSession() throws JSchException{ 
     Session _session=session;
     if(_session==null){
@@ -609,8 +725,18 @@ public abstract class Channel implements Runnable{
     }
     return _session;
   }
+  /**
+   * <p>Getter for the field <code>id</code>.</p>
+   *
+   * @return a int.
+   */
   public int getId(){ return id; }
 
+  /**
+   * <p>sendOpenConfirmation.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   protected void sendOpenConfirmation() throws Exception{
     Buffer buf=new Buffer(100);
     Packet packet=new Packet(buf);
@@ -623,6 +749,11 @@ public abstract class Channel implements Runnable{
     getSession().write(packet);
   }
 
+  /**
+   * <p>sendOpenFailure.</p>
+   *
+   * @param reasoncode a int.
+   */
   protected void sendOpenFailure(int reasoncode){
     try{
       Buffer buf=new Buffer(100);

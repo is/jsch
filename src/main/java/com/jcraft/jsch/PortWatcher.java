@@ -153,6 +153,9 @@ class PortWatcher implements Runnable{
     }
   }
 
+  /**
+   * <p>run.</p>
+   */
   public void run(){
     thread=this;
     try{

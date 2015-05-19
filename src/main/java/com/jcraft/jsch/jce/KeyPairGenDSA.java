@@ -32,6 +32,12 @@ package com.jcraft.jsch.jce;
 import java.security.*;
 import java.security.interfaces.*;
 
+/**
+ * <p>KeyPairGenDSA class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class KeyPairGenDSA implements com.jcraft.jsch.KeyPairGenDSA{
   byte[] x;  // private
   byte[] y;  // public
@@ -39,6 +45,7 @@ public class KeyPairGenDSA implements com.jcraft.jsch.KeyPairGenDSA{
   byte[] q;
   byte[] g;
 
+  /** {@inheritDoc} */
   public void init(int key_size) throws Exception{
     KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
     keyGen.initialize(key_size, new SecureRandom());
@@ -54,9 +61,34 @@ public class KeyPairGenDSA implements com.jcraft.jsch.KeyPairGenDSA{
     q=params.getQ().toByteArray();
     g=params.getG().toByteArray();
   }
+  /**
+   * <p>Getter for the field <code>x</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getX(){return x;}
+  /**
+   * <p>Getter for the field <code>y</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getY(){return y;}
+  /**
+   * <p>Getter for the field <code>p</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getP(){return p;}
+  /**
+   * <p>Getter for the field <code>q</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getQ(){return q;}
+  /**
+   * <p>Getter for the field <code>g</code>.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getG(){return g;}
 }

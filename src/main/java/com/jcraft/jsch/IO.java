@@ -31,6 +31,12 @@ package com.jcraft.jsch;
 
 import java.io.*;
 
+/**
+ * <p>IO class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class IO{
   InputStream in;
   OutputStream out;
@@ -56,6 +62,13 @@ public class IO{
     setInputStream(in);
   }
 
+  /**
+   * <p>put.</p>
+   *
+   * @param p a {@link com.jcraft.jsch.Packet} object.
+   * @throws java.io.IOException if any.
+   * @throws java.net.SocketException if any.
+   */
   public void put(Packet p) throws IOException, java.net.SocketException {
     out.write(p.buffer.buffer, 0, p.buffer.index);
     out.flush();
@@ -97,6 +110,9 @@ public class IO{
     catch(Exception ee){}
   }
 
+  /**
+   * <p>close.</p>
+   */
   public void close(){
     try{
       if(in!=null && !in_dontclose) in.close();

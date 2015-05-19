@@ -29,10 +29,40 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>Compression interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface Compression{
+  /** Constant <code>INFLATER=0</code> */
   static public final int INFLATER=0;
+  /** Constant <code>DEFLATER=1</code> */
   static public final int DEFLATER=1;
+  /**
+   * <p>init.</p>
+   *
+   * @param type a int.
+   * @param level a int.
+   */
   void init(int type, int level);
+  /**
+   * <p>compress.</p>
+   *
+   * @param buf an array of byte.
+   * @param start a int.
+   * @param len a int.
+   * @return a int.
+   */
   int compress(byte[] buf, int start, int len);
+  /**
+   * <p>uncompress.</p>
+   *
+   * @param buf an array of byte.
+   * @param start a int.
+   * @param len an array of int.
+   * @return an array of byte.
+   */
   byte[] uncompress(byte[] buf, int start, int[] len);
 }

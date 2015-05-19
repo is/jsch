@@ -29,11 +29,60 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>SignatureDSA interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface SignatureDSA{
+  /**
+   * <p>init.</p>
+   *
+   * @throws java.lang.Exception if any.
+   * @since 0.1.53
+   */
   void init() throws Exception;
+  /**
+   * <p>setPubKey.</p>
+   *
+   * @param y an array of byte.
+   * @param p an array of byte.
+   * @param q an array of byte.
+   * @param g an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   void setPubKey(byte[] y, byte[] p, byte[] q, byte[] g) throws Exception;
+  /**
+   * <p>setPrvKey.</p>
+   *
+   * @param x an array of byte.
+   * @param p an array of byte.
+   * @param q an array of byte.
+   * @param g an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   void setPrvKey(byte[] x, byte[] p, byte[] q, byte[] g) throws Exception;
+  /**
+   * <p>update.</p>
+   *
+   * @param H an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   void update(byte[] H) throws Exception;
+  /**
+   * <p>verify.</p>
+   *
+   * @param sig an array of byte.
+   * @return a boolean.
+   * @throws java.lang.Exception if any.
+   */
   boolean verify(byte[] sig) throws Exception;
+  /**
+   * <p>sign.</p>
+   *
+   * @return an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   byte[] sign() throws Exception;
 }

@@ -31,6 +31,12 @@ package com.jcraft.jsch.jcraft;
 import com.jcraft.jzlib.*;
 import com.jcraft.jsch.*;
 
+/**
+ * <p>Compression class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class Compression implements com.jcraft.jsch.Compression {
   static private final int BUF_SIZE=4096;
 
@@ -38,10 +44,14 @@ public class Compression implements com.jcraft.jsch.Compression {
   private ZStream stream;
   private byte[] tmpbuf=new byte[BUF_SIZE];
 
+  /**
+   * <p>Constructor for Compression.</p>
+   */
   public Compression(){
     stream=new ZStream();
   }
 
+  /** {@inheritDoc} */
   public void init(int type, int level){
     if(type==DEFLATER){
       stream.deflateInit(level);
@@ -72,6 +82,7 @@ public class Compression implements com.jcraft.jsch.Compression {
   }
   */
 
+  /** {@inheritDoc} */
   public int compress(byte[] buf, int start, int len){
     stream.next_in=buf;
     stream.next_in_index=start;
@@ -99,6 +110,14 @@ public class Compression implements com.jcraft.jsch.Compression {
     return outputlen;
   }
 
+  /**
+   * <p>uncompress.</p>
+   *
+   * @param buffer an array of byte.
+   * @param start a int.
+   * @param length an array of int.
+   * @return an array of byte.
+   */
   public byte[] uncompress(byte[] buffer, int start, int[] length){
     int inflated_end=0;
 

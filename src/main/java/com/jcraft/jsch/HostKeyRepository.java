@@ -29,16 +29,68 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>HostKeyRepository interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface HostKeyRepository{
+  /** Constant <code>OK=0</code> */
   final int OK=0;
+  /** Constant <code>NOT_INCLUDED=1</code> */
   final int NOT_INCLUDED=1;
+  /** Constant <code>CHANGED=2</code> */
   final int CHANGED=2;
 
+  /**
+   * <p>check.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   * @param key an array of byte.
+   * @return a int.
+   */
   int check(String host, byte[] key);
+  /**
+   * <p>add.</p>
+   *
+   * @param hostkey a {@link com.jcraft.jsch.HostKey} object.
+   * @param ui a {@link com.jcraft.jsch.UserInfo} object.
+   */
   void add(HostKey hostkey, UserInfo ui);
+  /**
+   * <p>remove.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   * @param type a {@link java.lang.String} object.
+   */
   void remove(String host, String type);
+  /**
+   * <p>remove.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   * @param type a {@link java.lang.String} object.
+   * @param key an array of byte.
+   */
   void remove(String host, String type, byte[] key);
+  /**
+   * <p>getKnownHostsRepositoryID.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   String getKnownHostsRepositoryID();
+  /**
+   * <p>getHostKey.</p>
+   *
+   * @return an array of {@link com.jcraft.jsch.HostKey} objects.
+   */
   HostKey[] getHostKey();
+  /**
+   * <p>getHostKey.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   * @param type a {@link java.lang.String} object.
+   * @return an array of {@link com.jcraft.jsch.HostKey} objects.
+   */
   HostKey[] getHostKey(String host, String type);
 }

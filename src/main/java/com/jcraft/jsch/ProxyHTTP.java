@@ -32,6 +32,12 @@ package com.jcraft.jsch;
 import java.io.*;
 import java.net.*;
 
+/**
+ * <p>ProxyHTTP class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class ProxyHTTP implements Proxy{
   private static int DEFAULTPORT=80;
   private String proxy_host;
@@ -43,6 +49,11 @@ public class ProxyHTTP implements Proxy{
   private String user;
   private String passwd;
 
+  /**
+   * <p>Constructor for ProxyHTTP.</p>
+   *
+   * @param proxy_host a {@link java.lang.String} object.
+   */
   public ProxyHTTP(String proxy_host){
     int port=DEFAULTPORT;
     String host=proxy_host;
@@ -57,14 +68,27 @@ public class ProxyHTTP implements Proxy{
     this.proxy_host=host;
     this.proxy_port=port;
   }
+  /**
+   * <p>Constructor for ProxyHTTP.</p>
+   *
+   * @param proxy_host a {@link java.lang.String} object.
+   * @param proxy_port a int.
+   */
   public ProxyHTTP(String proxy_host, int proxy_port){
     this.proxy_host=proxy_host;
     this.proxy_port=proxy_port;
   }
+  /**
+   * <p>setUserPasswd.</p>
+   *
+   * @param user a {@link java.lang.String} object.
+   * @param passwd a {@link java.lang.String} object.
+   */
   public void setUserPasswd(String user, String passwd){
     this.user=user;
     this.passwd=passwd;
   }
+  /** {@inheritDoc} */
   public void connect(SocketFactory socket_factory, String host, int port, int timeout) throws JSchException{
     try{
       if(socket_factory==null){
@@ -159,9 +183,27 @@ public class ProxyHTTP implements Proxy{
       throw new JSchException(message);
     }
   }
+  /**
+   * <p>getInputStream.</p>
+   *
+   * @return a {@link java.io.InputStream} object.
+   */
   public InputStream getInputStream(){ return in; }
+  /**
+   * <p>getOutputStream.</p>
+   *
+   * @return a {@link java.io.OutputStream} object.
+   */
   public OutputStream getOutputStream(){ return out; }
+  /**
+   * <p>Getter for the field <code>socket</code>.</p>
+   *
+   * @return a {@link java.net.Socket} object.
+   */
   public Socket getSocket(){ return socket; }
+  /**
+   * <p>close.</p>
+   */
   public void close(){
     try{
       if(in!=null)in.close();
@@ -174,6 +216,11 @@ public class ProxyHTTP implements Proxy{
     out=null;
     socket=null;
   }
+  /**
+   * <p>getDefaultPort.</p>
+   *
+   * @return a int.
+   */
   public static int getDefaultPort(){
     return DEFAULTPORT;
   }

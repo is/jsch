@@ -29,13 +29,60 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>Identity interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface Identity{
+  /**
+   * <p>setPassphrase.</p>
+   *
+   * @param passphrase an array of byte.
+   * @return a boolean.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public boolean setPassphrase(byte[] passphrase) throws JSchException;
+  /**
+   * <p>getPublicKeyBlob.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getPublicKeyBlob();
+  /**
+   * <p>getSignature.</p>
+   *
+   * @param data an array of byte.
+   * @return an array of byte.
+   */
   public byte[] getSignature(byte[] data);
+  /**
+   * <p>decrypt.</p>
+   *
+   * @return a boolean.
+   */
   public boolean decrypt();
+  /**
+   * <p>getAlgName.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getAlgName();
+  /**
+   * <p>getName.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getName();
+  /**
+   * <p>isEncrypted.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isEncrypted();
+  /**
+   * <p>clear.</p>
+   */
   public void clear();
 }

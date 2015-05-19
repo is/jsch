@@ -29,11 +29,56 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>SignatureRSA interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface SignatureRSA{
+  /**
+   * <p>init.</p>
+   *
+   * @throws java.lang.Exception if any.
+   * @since 0.1.53
+   */
   void init() throws Exception;
+  /**
+   * <p>setPubKey.</p>
+   *
+   * @param e an array of byte.
+   * @param n an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   void setPubKey(byte[] e, byte[] n) throws Exception;
+  /**
+   * <p>setPrvKey.</p>
+   *
+   * @param d an array of byte.
+   * @param n an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   void setPrvKey(byte[] d, byte[] n) throws Exception;
+  /**
+   * <p>update.</p>
+   *
+   * @param H an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   void update(byte[] H) throws Exception;
+  /**
+   * <p>verify.</p>
+   *
+   * @param sig an array of byte.
+   * @return a boolean.
+   * @throws java.lang.Exception if any.
+   */
   boolean verify(byte[] sig) throws Exception;
+  /**
+   * <p>sign.</p>
+   *
+   * @return an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   byte[] sign() throws Exception;
 }

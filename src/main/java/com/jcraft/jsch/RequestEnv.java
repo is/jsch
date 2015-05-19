@@ -36,6 +36,7 @@ class RequestEnv extends Request{
     this.name=name;
     this.value=value;
   }
+  /** {@inheritDoc} */
   public void request(Session session, Channel channel) throws Exception{
     super.request(session, channel);
 

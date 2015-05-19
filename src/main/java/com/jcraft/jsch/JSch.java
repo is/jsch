@@ -32,6 +32,12 @@ package com.jcraft.jsch;
 import java.io.InputStream;
 import java.util.Vector;
 
+/**
+ * <p>JSch class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class JSch{
   static java.util.Hashtable config=new java.util.Hashtable();
   static{
@@ -118,6 +124,9 @@ public class JSch{
     };
   static Logger logger=DEVNULL;
 
+  /**
+   * <p>Constructor for JSch.</p>
+   */
   public JSch(){
 
     try{
@@ -134,7 +143,24 @@ public class JSch{
 
   }
 
+  /**
+   * <p>getSession.</p>
+   *
+   * @param username a {@link java.lang.String} object.
+   * @param host a {@link java.lang.String} object.
+   * @return a {@link com.jcraft.jsch.Session} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public Session getSession(String username, String host) throws JSchException { return getSession(username, host, 22); }
+  /**
+   * <p>getSession.</p>
+   *
+   * @param username a {@link java.lang.String} object.
+   * @param host a {@link java.lang.String} object.
+   * @param port a int.
+   * @return a {@link com.jcraft.jsch.Session} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public Session getSession(String username, String host, int port) throws JSchException {
     if(username==null){
       throw new JSchException("username must not be null.");
@@ -150,21 +176,43 @@ public class JSch{
     return s;
   }
 
+  /**
+   * <p>addSession.</p>
+   *
+   * @param session a {@link com.jcraft.jsch.Session} object.
+   */
   protected void addSession(Session session){
     synchronized(pool){
       pool.addElement(session);
     }
   }
 
+  /**
+   * <p>removeSession.</p>
+   *
+   * @param session a {@link com.jcraft.jsch.Session} object.
+   * @return a boolean.
+   */
   protected boolean removeSession(Session session){
     synchronized(pool){
       return pool.remove(session);
     }
   }
+  /**
+   * <p>setHostKeyRepository.</p>
+   *
+   * @param hkrepo a {@link com.jcraft.jsch.HostKeyRepository} object.
+   */
   public void setHostKeyRepository(HostKeyRepository hkrepo){
     known_hosts=hkrepo;
   }
 
+  /**
+   * <p>setKnownHosts.</p>
+   *
+   * @param filename a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setKnownHosts(String filename) throws JSchException{
     if(known_hosts==null) known_hosts=new KnownHosts(this);
     if(known_hosts instanceof KnownHosts){
@@ -174,6 +222,12 @@ public class JSch{
     }
   }
 
+  /**
+   * <p>setKnownHosts.</p>
+   *
+   * @param stream a {@link java.io.InputStream} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setKnownHosts(InputStream stream) throws JSchException{ 
     if(known_hosts==null) known_hosts=new KnownHosts(this);
     if(known_hosts instanceof KnownHosts){
@@ -183,15 +237,33 @@ public class JSch{
     }
   }
 
+  /**
+   * <p>getHostKeyRepository.</p>
+   *
+   * @return a {@link com.jcraft.jsch.HostKeyRepository} object.
+   */
   public HostKeyRepository getHostKeyRepository(){ 
     if(known_hosts==null) known_hosts=new KnownHosts(this);
     return known_hosts; 
   }
 
+  /**
+   * <p>addIdentity.</p>
+   *
+   * @param prvkey a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void addIdentity(String prvkey) throws JSchException{
     addIdentity(prvkey, (byte[])null);
   }
 
+  /**
+   * <p>addIdentity.</p>
+   *
+   * @param prvkey a {@link java.lang.String} object.
+   * @param passphrase a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void addIdentity(String prvkey, String passphrase) throws JSchException{
     byte[] _passphrase=null;
     if(passphrase!=null){
@@ -202,20 +274,51 @@ public class JSch{
       Util.bzero(_passphrase);
   }
 
+  /**
+   * <p>addIdentity.</p>
+   *
+   * @param prvkey a {@link java.lang.String} object.
+   * @param passphrase an array of byte.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void addIdentity(String prvkey, byte[] passphrase) throws JSchException{
     Identity identity=IdentityFile.newInstance(prvkey, null, this);
     addIdentity(identity, passphrase);
   }
+  /**
+   * <p>addIdentity.</p>
+   *
+   * @param prvkey a {@link java.lang.String} object.
+   * @param pubkey a {@link java.lang.String} object.
+   * @param passphrase an array of byte.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void addIdentity(String prvkey, String pubkey, byte[] passphrase) throws JSchException{
     Identity identity=IdentityFile.newInstance(prvkey, pubkey, this);
     addIdentity(identity, passphrase);
   }
 
+  /**
+   * <p>addIdentity.</p>
+   *
+   * @param name a {@link java.lang.String} object.
+   * @param prvkey an array of byte.
+   * @param pubkey an array of byte.
+   * @param passphrase an array of byte.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void addIdentity(String name, byte[]prvkey, byte[]pubkey, byte[] passphrase) throws JSchException{
     Identity identity=IdentityFile.newInstance(name, prvkey, pubkey, this);
     addIdentity(identity, passphrase);
   }
 
+  /**
+   * <p>addIdentity.</p>
+   *
+   * @param identity a {@link com.jcraft.jsch.Identity} object.
+   * @param passphrase an array of byte.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void addIdentity(Identity identity, byte[] passphrase) throws JSchException{
     if(passphrase!=null){
       try{ 
@@ -235,6 +338,12 @@ public class JSch{
     }
   }
 
+  /**
+   * <p>removeIdentity.</p>
+   *
+   * @param name a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void removeIdentity(String name) throws JSchException{
     synchronized(identities){
       for(int i=0; i<identities.size(); i++){
@@ -248,6 +357,12 @@ public class JSch{
     }
   }
 
+  /**
+   * <p>getIdentityNames.</p>
+   *
+   * @return a java$util$Vector object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public Vector getIdentityNames() throws JSchException{
     Vector foo=new Vector();
     synchronized(identities){
@@ -259,6 +374,11 @@ public class JSch{
     return foo;
   }
 
+  /**
+   * <p>removeAllIdentity.</p>
+   *
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void removeAllIdentity() throws JSchException{
     synchronized(identities){
       Vector foo=getIdentityNames();
@@ -269,12 +389,23 @@ public class JSch{
     }
   }
 
+  /**
+   * <p>Getter for the field <code>config</code>.</p>
+   *
+   * @param key a {@link java.lang.String} object.
+   * @return a {@link java.lang.String} object.
+   */
   public static String getConfig(String key){ 
     synchronized(config){
       return (String)(config.get(key));
     } 
   }
 
+  /**
+   * <p>Setter for the field <code>config</code>.</p>
+   *
+   * @param newconf a {@link java.util.Hashtable} object.
+   */
   public static void setConfig(java.util.Hashtable newconf){
     synchronized(config){
       for(java.util.Enumeration e=newconf.keys() ; e.hasMoreElements() ;) {
@@ -284,10 +415,21 @@ public class JSch{
     }
   }
 
+  /**
+   * <p>Setter for the field <code>config</code>.</p>
+   *
+   * @param key a {@link java.lang.String} object.
+   * @param value a {@link java.lang.String} object.
+   */
   public static void setConfig(String key, String value){
     config.put(key, value);
   }
 
+  /**
+   * <p>Setter for the field <code>logger</code>.</p>
+   *
+   * @param logger a {@link com.jcraft.jsch.Logger} object.
+   */
   public static void setLogger(Logger logger){
     if(logger==null) JSch.logger=DEVNULL;
     JSch.logger=logger;

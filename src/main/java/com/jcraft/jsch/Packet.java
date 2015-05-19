@@ -29,6 +29,12 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>Packet class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class Packet{
 
   private static Random random=null;
@@ -36,9 +42,17 @@ public class Packet{
 
   Buffer buffer;
   byte[] ba4=new byte[4]; 
+  /**
+   * <p>Constructor for Packet.</p>
+   *
+   * @param buffer a {@link com.jcraft.jsch.Buffer} object.
+   */
   public Packet(Buffer buffer){
     this.buffer=buffer;
   }
+  /**
+   * <p>reset.</p>
+   */
   public void reset(){
     buffer.index=5;
   }

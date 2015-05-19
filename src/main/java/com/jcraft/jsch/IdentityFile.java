@@ -389,11 +389,23 @@ class IdentityFile implements Identity{
     }
   }
 
+  /**
+   * <p>getAlgName.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getAlgName(){
     if(type==RSA) return "ssh-rsa";
     return "ssh-dss"; 
   }
 
+  /**
+   * <p>setPassphrase.</p>
+   *
+   * @param _passphrase an array of byte.
+   * @return a boolean.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public boolean setPassphrase(byte[] _passphrase) throws JSchException{
     /*
       hash is MD5
@@ -447,6 +459,11 @@ class IdentityFile implements Identity{
     }
   }
 
+  /**
+   * <p>getPublicKeyBlob.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getPublicKeyBlob(){
     if(publickeyblob!=null) return publickeyblob;
     if(type==RSA) return getPublicKeyBlob_rsa();
@@ -479,6 +496,12 @@ class IdentityFile implements Identity{
     return buf.buffer;
   }
 
+  /**
+   * <p>getSignature.</p>
+   *
+   * @param data an array of byte.
+   * @return an array of byte.
+   */
   public byte[] getSignature(byte[] data){
     if(type==RSA) return getSignature_rsa(data);
     return getSignature_dss(data);
@@ -549,6 +572,11 @@ class IdentityFile implements Identity{
     return null;
   }
 
+  /**
+   * <p>decrypt.</p>
+   *
+   * @return a boolean.
+   */
   public boolean decrypt(){
     if(type==RSA) return decrypt_rsa();
     return decrypt_dss();
@@ -880,10 +908,20 @@ System.err.println("");
     return true;
   }
 
+  /**
+   * <p>isEncrypted.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isEncrypted(){
     return encrypted;
   }
 
+  /**
+   * <p>getName.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getName(){
     return identity;
   }
@@ -894,12 +932,16 @@ System.err.println("");
     return (byte)(c-'A'+10);
   }
 
+  /** {@inheritDoc} */
   public boolean equals(Object o){
     if(!(o instanceof IdentityFile)) return super.equals(o);
     IdentityFile foo=(IdentityFile)o;
     return getName().equals(foo.getName());
   }
 
+  /**
+   * <p>clear.</p>
+   */
   public void clear(){
     Util.bzero(encoded_data);
     Util.bzero(prv_array);
@@ -908,6 +950,9 @@ System.err.println("");
     Util.bzero(iv);
   }
 
+  /**
+   * <p>finalize.</p>
+   */
   public void finalize (){
     clear();
   }

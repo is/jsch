@@ -29,15 +29,38 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>ChannelSubsystem class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class ChannelSubsystem extends ChannelSession{
   boolean xforwading=false;
   boolean pty=false;
   boolean want_reply=true;
   String subsystem="";
+  /** {@inheritDoc} */
   public void setXForwarding(boolean foo){ xforwading=true; }
+  /** {@inheritDoc} */
   public void setPty(boolean foo){ pty=foo; }
+  /**
+   * <p>setWantReply.</p>
+   *
+   * @param foo a boolean.
+   */
   public void setWantReply(boolean foo){ want_reply=foo; }
+  /**
+   * <p>Setter for the field <code>subsystem</code>.</p>
+   *
+   * @param foo a {@link java.lang.String} object.
+   */
   public void setSubsystem(String foo){ subsystem=foo; }
+  /**
+   * <p>start.</p>
+   *
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void start() throws JSchException{
     Session _session=getSession();
     try{
@@ -74,9 +97,20 @@ public class ChannelSubsystem extends ChannelSession{
     io.setOutputStream(getSession().out);
   }
 
+  /**
+   * <p>setErrStream.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   */
   public void setErrStream(java.io.OutputStream out){
     setExtOutputStream(out);
   }
+  /**
+   * <p>getErrStream.</p>
+   *
+   * @return a {@link java.io.InputStream} object.
+   * @throws java.io.IOException if any.
+   */
   public java.io.InputStream getErrStream() throws java.io.IOException {
     return getExtInputStream();
   }

@@ -29,11 +29,51 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>MAC interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface MAC{
+  /**
+   * <p>getName.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   String getName();
+  /**
+   * <p>getBlockSize.</p>
+   *
+   * @return a int.
+   */
   int getBlockSize(); 
+  /**
+   * <p>init.</p>
+   *
+   * @param key an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   void init(byte[] key) throws Exception; 
+  /**
+   * <p>update.</p>
+   *
+   * @param foo an array of byte.
+   * @param start a int.
+   * @param len a int.
+   */
   void update(byte[] foo, int start, int len);
+  /**
+   * <p>update.</p>
+   *
+   * @param foo a int.
+   */
   void update(int foo);
+  /**
+   * <p>doFinal.</p>
+   *
+   * @param buf an array of byte.
+   * @param offset a int.
+   */
   void doFinal(byte[] buf, int offset);
 }

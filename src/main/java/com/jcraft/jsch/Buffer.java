@@ -29,39 +29,92 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>Buffer class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class Buffer{
   final byte[] tmp=new byte[4];
   byte[] buffer;
   int index;
   int s;
+  /**
+   * <p>Constructor for Buffer.</p>
+   *
+   * @param size a int.
+   */
   public Buffer(int size){
     buffer=new byte[size];
     index=0;
     s=0;
   }
+  /**
+   * <p>Constructor for Buffer.</p>
+   *
+   * @param buffer an array of byte.
+   */
   public Buffer(byte[] buffer){
     this.buffer=buffer;
     index=0;
     s=0;
   }
+  /**
+   * <p>Constructor for Buffer.</p>
+   */
   public Buffer(){ this(1024*10*2); }
+  /**
+   * <p>putByte.</p>
+   *
+   * @param foo a byte.
+   */
   public void putByte(byte foo){
     buffer[index++]=foo;
   }
+  /**
+   * <p>putByte.</p>
+   *
+   * @param foo an array of byte.
+   */
   public void putByte(byte[] foo) {
     putByte(foo, 0, foo.length);
   }
+  /**
+   * <p>putByte.</p>
+   *
+   * @param foo an array of byte.
+   * @param begin a int.
+   * @param length a int.
+   */
   public void putByte(byte[] foo, int begin, int length) {
     System.arraycopy(foo, begin, buffer, index, length);
     index+=length;
   }
+  /**
+   * <p>putString.</p>
+   *
+   * @param foo an array of byte.
+   */
   public void putString(byte[] foo){
     putString(foo, 0, foo.length);
   }
+  /**
+   * <p>putString.</p>
+   *
+   * @param foo an array of byte.
+   * @param begin a int.
+   * @param length a int.
+   */
   public void putString(byte[] foo, int begin, int length) {
     putInt(length);
     putByte(foo, begin, length);
   }
+  /**
+   * <p>putInt.</p>
+   *
+   * @param val a int.
+   */
   public void putInt(int val) {
     tmp[0]=(byte)(val >>> 24);
     tmp[1]=(byte)(val >>> 16);
@@ -70,6 +123,11 @@ public class Buffer{
     System.arraycopy(tmp, 0, buffer, index, 4);
     index+=4;
   }
+  /**
+   * <p>putLong.</p>
+   *
+   * @param val a long.
+   */
   public void putLong(long val) {
     tmp[0]=(byte)(val >>> 56);
     tmp[1]=(byte)(val >>> 48);
@@ -92,6 +150,11 @@ public class Buffer{
       n--;
     }
   }
+  /**
+   * <p>putMPInt.</p>
+   *
+   * @param foo an array of byte.
+   */
   public void putMPInt(byte[] foo){
     int i=foo.length;
     if((foo[0]&0x80)!=0){
@@ -104,25 +167,55 @@ public class Buffer{
     }
     putByte(foo);
   }
+  /**
+   * <p>getLength.</p>
+   *
+   * @return a int.
+   */
   public int getLength(){
     return index-s;
   }
+  /**
+   * <p>getOffSet.</p>
+   *
+   * @return a int.
+   */
   public int getOffSet(){
     return s;
   }
+  /**
+   * <p>setOffSet.</p>
+   *
+   * @param s a int.
+   */
   public void setOffSet(int s){
     this.s=s;
   }
+  /**
+   * <p>getLong.</p>
+   *
+   * @return a long.
+   */
   public long getLong(){
     long foo = getInt()&0xffffffffL;
     foo = ((foo<<32)) | (getInt()&0xffffffffL);
     return foo;
   }
+  /**
+   * <p>getInt.</p>
+   *
+   * @return a int.
+   */
   public int getInt(){
     int foo = getShort();
     foo = ((foo<<16)&0xffff0000) | (getShort()&0xffff);
     return foo;
   }
+  /**
+   * <p>getUInt.</p>
+   *
+   * @return a long.
+   */
   public long getUInt(){
     long foo = 0L;
     long bar = 0L;
@@ -138,9 +231,19 @@ public class Buffer{
     foo = ((foo<<8)&0xff00)|(getByte()&0xff);
     return foo;
   }
+  /**
+   * <p>getByte.</p>
+   *
+   * @return a int.
+   */
   public int getByte() {
     return (buffer[s++]&0xff);
   }
+  /**
+   * <p>getByte.</p>
+   *
+   * @param foo an array of byte.
+   */
   public void getByte(byte[] foo) {
     getByte(foo, 0, foo.length);
   }
@@ -148,11 +251,22 @@ public class Buffer{
     System.arraycopy(buffer, s, foo, start, len); 
     s+=len;
   }
+  /**
+   * <p>getByte.</p>
+   *
+   * @param len a int.
+   * @return a int.
+   */
   public int getByte(int len) {
     int foo=s;
     s+=len;
     return foo;
   }
+  /**
+   * <p>getMPInt.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getMPInt() {
     int i=getInt();  // uint32
     if(i<0 ||  // bigger than 0x7fffffff
@@ -164,6 +278,11 @@ public class Buffer{
     getByte(foo, 0, i);
     return foo;
   }
+  /**
+   * <p>getMPIntBits.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getMPIntBits() {
     int bits=getInt();
     int bytes=(bits+7)/8;
@@ -177,6 +296,11 @@ public class Buffer{
     }
     return foo;
   }
+  /**
+   * <p>getString.</p>
+   *
+   * @return an array of byte.
+   */
   public byte[] getString() {
     int i = getInt();  // uint32
     if(i<0 ||  // bigger than 0x7fffffff
@@ -194,10 +318,16 @@ public class Buffer{
     len[0]=i;
     return buffer;
   }
+  /**
+   * <p>reset.</p>
+   */
   public void reset(){
     index=0;
     s=0;
   }
+  /**
+   * <p>shift.</p>
+   */
   public void shift(){
     if(s==0)return;
     System.arraycopy(buffer, s, buffer, 0, index-s);

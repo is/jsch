@@ -31,19 +31,36 @@ package com.jcraft.jsch.jcraft;
 
 import com.jcraft.jsch.MAC;
 
+/**
+ * <p>HMACSHA196 class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class HMACSHA196 extends HMACSHA1{
 
   private static final String name="hmac-sha1-96";
   private static final int BSIZE=12;
 
+  /**
+   * <p>getBlockSize.</p>
+   *
+   * @return a int.
+   */
   public int getBlockSize(){return BSIZE;};
 
   private final byte[] _buf16=new byte[20];
+  /** {@inheritDoc} */
   public void doFinal(byte[] buf, int offset){
     super.doFinal(_buf16, 0);
     System.arraycopy(_buf16, 0, buf, offset, BSIZE);
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getName(){
     return name;
   }

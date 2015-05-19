@@ -29,6 +29,19 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>Random interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface Random{
+  /**
+   * <p>fill.</p>
+   *
+   * @param foo an array of byte.
+   * @param start a int.
+   * @param len a int.
+   */
   void fill(byte[] foo, int start, int len);
 }

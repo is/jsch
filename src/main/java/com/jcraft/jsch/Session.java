@@ -32,6 +32,12 @@ package com.jcraft.jsch;
 import java.io.*;
 import java.net.*;
 
+/**
+ * <p>Session class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class Session implements Runnable{
   static private final String version="JSCH-0.1.44";
 
@@ -150,10 +156,21 @@ public class Session implements Runnable{
     packet=new Packet(buf);
   }
 
+  /**
+   * <p>connect.</p>
+   *
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void connect() throws JSchException{
     connect(timeout);
   }
 
+  /**
+   * <p>connect.</p>
+   *
+   * @param connectTimeout a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void connect(int connectTimeout) throws JSchException{
     if(isConnected){
       throw new JSchException("session is already connected");
@@ -549,6 +566,11 @@ public class Session implements Runnable{
   }
 
   private boolean in_kex=false;
+  /**
+   * <p>rekey.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   public void rekey() throws Exception {
     send_kexinit();
   }
@@ -757,6 +779,13 @@ key_type+" key fingerprint is "+key_fprint+".\n"+
 
 //public void start(){ (new Thread(this)).start();  }
 
+  /**
+   * <p>openChannel.</p>
+   *
+   * @param type a {@link java.lang.String} object.
+   * @return a {@link com.jcraft.jsch.Channel} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public Channel openChannel(String type) throws JSchException{
     if(!isConnected){
       throw new JSchException("session is down");
@@ -774,6 +803,12 @@ key_type+" key fingerprint is "+key_fprint+".\n"+
   }
 
   // encode will bin invoked in write with synchronization.
+  /**
+   * <p>encode.</p>
+   *
+   * @param packet a {@link com.jcraft.jsch.Packet} object.
+   * @throws java.lang.Exception if any.
+   */
   public void encode(Packet packet) throws Exception{
 //System.err.println("encode: "+packet.buffer.getCommand());
 //System.err.println("        "+packet.buffer.index);
@@ -814,6 +849,13 @@ key_type+" key fingerprint is "+key_fprint+".\n"+
 
   private int s2ccipher_size=8;
   private int c2scipher_size=8;
+  /**
+   * <p>read.</p>
+   *
+   * @param buf a {@link com.jcraft.jsch.Buffer} object.
+   * @return a {@link com.jcraft.jsch.Buffer} object.
+   * @throws java.lang.Exception if any.
+   */
   public Buffer read(Buffer buf) throws Exception{
     int j=0;
     while(true){
@@ -1184,6 +1226,12 @@ key_type+" key fingerprint is "+key_fprint+".\n"+
     _write(packet);
   }
 
+  /**
+   * <p>write.</p>
+   *
+   * @param packet a {@link com.jcraft.jsch.Packet} object.
+   * @throws java.lang.Exception if any.
+   */
   public void write(Packet packet) throws Exception{
     // System.err.println("in_kex="+in_kex+" "+(packet.buffer.getCommand()));
     long t = getTimeout();
@@ -1221,6 +1269,9 @@ key_type+" key fingerprint is "+key_fprint+".\n"+
   }
 
   Runnable thread;
+  /**
+   * <p>run.</p>
+   */
   public void run(){
     thread=this;
 
@@ -1542,6 +1593,9 @@ break;
     isConnected=false;
   }
 
+  /**
+   * <p>disconnect.</p>
+   */
   public void disconnect(){
     if(!isConnected) return;
     //System.err.println(this+": disconnect");
@@ -1607,12 +1661,42 @@ break;
     //System.gc();
   }
 
+  /**
+   * <p>setPortForwardingL.</p>
+   *
+   * @param lport a int.
+   * @param host a {@link java.lang.String} object.
+   * @param rport a int.
+   * @return a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public int setPortForwardingL(int lport, String host, int rport) throws JSchException{
     return setPortForwardingL("127.0.0.1", lport, host, rport);
   }
+  /**
+   * <p>setPortForwardingL.</p>
+   *
+   * @param boundaddress a {@link java.lang.String} object.
+   * @param lport a int.
+   * @param host a {@link java.lang.String} object.
+   * @param rport a int.
+   * @return a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public int setPortForwardingL(String boundaddress, int lport, String host, int rport) throws JSchException{
     return setPortForwardingL(boundaddress, lport, host, rport, null);
   }
+  /**
+   * <p>setPortForwardingL.</p>
+   *
+   * @param boundaddress a {@link java.lang.String} object.
+   * @param lport a int.
+   * @param host a {@link java.lang.String} object.
+   * @param rport a int.
+   * @param ssf a {@link com.jcraft.jsch.ServerSocketFactory} object.
+   * @return a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public int setPortForwardingL(String boundaddress, int lport, String host, int rport, ServerSocketFactory ssf) throws JSchException{
     PortWatcher pw=PortWatcher.addPort(this, boundaddress, lport, host, rport, ssf);
     Thread tmp=new Thread(pw);
@@ -1623,36 +1707,115 @@ break;
     tmp.start();
     return pw.lport;
   }
+  /**
+   * <p>delPortForwardingL.</p>
+   *
+   * @param lport a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void delPortForwardingL(int lport) throws JSchException{
     delPortForwardingL("127.0.0.1", lport);
   }
+  /**
+   * <p>delPortForwardingL.</p>
+   *
+   * @param boundaddress a {@link java.lang.String} object.
+   * @param lport a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void delPortForwardingL(String boundaddress, int lport) throws JSchException{
     PortWatcher.delPort(this, boundaddress, lport);
   }
+  /**
+   * <p>getPortForwardingL.</p>
+   *
+   * @return an array of {@link java.lang.String} objects.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public String[] getPortForwardingL() throws JSchException{
     return PortWatcher.getPortForwarding(this);
   }
 
+  /**
+   * <p>setPortForwardingR.</p>
+   *
+   * @param rport a int.
+   * @param host a {@link java.lang.String} object.
+   * @param lport a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setPortForwardingR(int rport, String host, int lport) throws JSchException{
     setPortForwardingR(null, rport, host, lport, (SocketFactory)null);
   }
+  /**
+   * <p>setPortForwardingR.</p>
+   *
+   * @param bind_address a {@link java.lang.String} object.
+   * @param rport a int.
+   * @param host a {@link java.lang.String} object.
+   * @param lport a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setPortForwardingR(String bind_address, int rport, String host, int lport) throws JSchException{
     setPortForwardingR(bind_address, rport, host, lport, (SocketFactory)null);
   }
+  /**
+   * <p>setPortForwardingR.</p>
+   *
+   * @param rport a int.
+   * @param host a {@link java.lang.String} object.
+   * @param lport a int.
+   * @param sf a {@link com.jcraft.jsch.SocketFactory} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setPortForwardingR(int rport, String host, int lport, SocketFactory sf) throws JSchException{
     setPortForwardingR(null, rport, host, lport, sf);
   }
+  /**
+   * <p>setPortForwardingR.</p>
+   *
+   * @param bind_address a {@link java.lang.String} object.
+   * @param rport a int.
+   * @param host a {@link java.lang.String} object.
+   * @param lport a int.
+   * @param sf a {@link com.jcraft.jsch.SocketFactory} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setPortForwardingR(String bind_address, int rport, String host, int lport, SocketFactory sf) throws JSchException{
     ChannelForwardedTCPIP.addPort(this, bind_address, rport, host, lport, sf);
     setPortForwarding(bind_address, rport);
   }
 
+  /**
+   * <p>setPortForwardingR.</p>
+   *
+   * @param rport a int.
+   * @param daemon a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setPortForwardingR(int rport, String daemon) throws JSchException{
     setPortForwardingR(null, rport, daemon, null);
   }
+  /**
+   * <p>setPortForwardingR.</p>
+   *
+   * @param rport a int.
+   * @param daemon a {@link java.lang.String} object.
+   * @param arg an array of {@link java.lang.Object} objects.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setPortForwardingR(int rport, String daemon, Object[] arg) throws JSchException{
     setPortForwardingR(null, rport, daemon, arg);
   }
+  /**
+   * <p>setPortForwardingR.</p>
+   *
+   * @param bind_address a {@link java.lang.String} object.
+   * @param rport a int.
+   * @param daemon a {@link java.lang.String} object.
+   * @param arg an array of {@link java.lang.Object} objects.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setPortForwardingR(String bind_address, int rport, String daemon, Object[] arg) throws JSchException{
     ChannelForwardedTCPIP.addPort(this, bind_address, rport, daemon, arg);
     setPortForwarding(bind_address, rport);
@@ -1715,6 +1878,12 @@ break;
     }
     }
   }
+  /**
+   * <p>delPortForwardingR.</p>
+   *
+   * @param rport a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void delPortForwardingR(int rport) throws JSchException{
     ChannelForwardedTCPIP.delPort(this, rport);
   }
@@ -1769,21 +1938,81 @@ break;
     channel.setSession(this);
   }
 
+  /**
+   * <p>Setter for the field <code>proxy</code>.</p>
+   *
+   * @param proxy a {@link com.jcraft.jsch.Proxy} object.
+   */
   public void setProxy(Proxy proxy){ this.proxy=proxy; }
+  /**
+   * <p>Setter for the field <code>host</code>.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   */
   public void setHost(String host){ this.host=host; }
+  /**
+   * <p>Setter for the field <code>port</code>.</p>
+   *
+   * @param port a int.
+   */
   public void setPort(int port){ this.port=port; }
   void setUserName(String username){ this.username=username; }
+  /**
+   * <p>setUserInfo.</p>
+   *
+   * @param userinfo a {@link com.jcraft.jsch.UserInfo} object.
+   */
   public void setUserInfo(UserInfo userinfo){ this.userinfo=userinfo; }
+  /**
+   * <p>getUserInfo.</p>
+   *
+   * @return a {@link com.jcraft.jsch.UserInfo} object.
+   */
   public UserInfo getUserInfo(){ return userinfo; }
+  /**
+   * <p>setInputStream.</p>
+   *
+   * @param in a {@link java.io.InputStream} object.
+   */
   public void setInputStream(InputStream in){ this.in=in; }
+  /**
+   * <p>setOutputStream.</p>
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   */
   public void setOutputStream(OutputStream out){ this.out=out; }
+  /**
+   * <p>setX11Host.</p>
+   *
+   * @param host a {@link java.lang.String} object.
+   */
   public void setX11Host(String host){ ChannelX11.setHost(host); }
+  /**
+   * <p>setX11Port.</p>
+   *
+   * @param port a int.
+   */
   public void setX11Port(int port){ ChannelX11.setPort(port); }
+  /**
+   * <p>setX11Cookie.</p>
+   *
+   * @param cookie a {@link java.lang.String} object.
+   */
   public void setX11Cookie(String cookie){ ChannelX11.setCookie(cookie); }
+  /**
+   * <p>Setter for the field <code>password</code>.</p>
+   *
+   * @param password a {@link java.lang.String} object.
+   */
   public void setPassword(String password){
     if(password!=null)
       this.password=Util.str2byte(password);
   }
+  /**
+   * <p>Setter for the field <code>password</code>.</p>
+   *
+   * @param password an array of byte.
+   */
   public void setPassword(byte[] password){ 
     if(password!=null){
       this.password=new byte[password.length];
@@ -1791,10 +2020,20 @@ break;
     }
   }
 
+  /**
+   * <p>Setter for the field <code>config</code>.</p>
+   *
+   * @param newconf a {@link java.util.Properties} object.
+   */
   public void setConfig(java.util.Properties newconf){
     setConfig((java.util.Hashtable)newconf);
   }
  
+  /**
+   * <p>Setter for the field <code>config</code>.</p>
+   *
+   * @param newconf a {@link java.util.Hashtable} object.
+   */
   public void setConfig(java.util.Hashtable newconf){
     synchronized(lock){
       if(config==null) 
@@ -1806,6 +2045,12 @@ break;
     }
   }
 
+  /**
+   * <p>Setter for the field <code>config</code>.</p>
+   *
+   * @param key a {@link java.lang.String} object.
+   * @param value a {@link java.lang.String} object.
+   */
   public void setConfig(String key, String value){
     synchronized(lock){ 
       if(config==null){
@@ -1815,6 +2060,12 @@ break;
     }
   }
 
+  /**
+   * <p>Getter for the field <code>config</code>.</p>
+   *
+   * @param key a {@link java.lang.String} object.
+   * @return a {@link java.lang.String} object.
+   */
   public String getConfig(String key){
     Object foo=null;
     if(config!=null){
@@ -1826,11 +2077,32 @@ break;
     return null;
   }
 
+  /**
+   * <p>setSocketFactory.</p>
+   *
+   * @param sfactory a {@link com.jcraft.jsch.SocketFactory} object.
+   */
   public void setSocketFactory(SocketFactory sfactory){ 
     socket_factory=sfactory;
   }
+  /**
+   * <p>isConnected.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isConnected(){ return isConnected; }
+  /**
+   * <p>Getter for the field <code>timeout</code>.</p>
+   *
+   * @return a int.
+   */
   public int getTimeout(){ return timeout; }
+  /**
+   * <p>Setter for the field <code>timeout</code>.</p>
+   *
+   * @param timeout a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setTimeout(int timeout) throws JSchException {
     if(socket==null){
       if(timeout<0){
@@ -1849,16 +2121,36 @@ break;
       throw new JSchException(e.toString());
     }
   }
+  /**
+   * <p>getServerVersion.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getServerVersion(){
     return Util.byte2str(V_S);
   }
+  /**
+   * <p>getClientVersion.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getClientVersion(){
     return Util.byte2str(V_C);
   }
+  /**
+   * <p>setClientVersion.</p>
+   *
+   * @param cv a {@link java.lang.String} object.
+   */
   public void setClientVersion(String cv){
     V_C=Util.str2byte(cv);
   }
 
+  /**
+   * <p>sendIgnore.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   public void sendIgnore() throws Exception{
     Buffer buf=new Buffer();
     Packet packet=new Packet(buf);
@@ -1868,6 +2160,11 @@ break;
   }
 
   private static final byte[] keepalivemsg=Util.str2byte("keepalive@jcraft.com");
+  /**
+   * <p>sendKeepAliveMsg.</p>
+   *
+   * @throws java.lang.Exception if any.
+   */
   public void sendKeepAliveMsg() throws Exception{
     Buffer buf=new Buffer();
     Packet packet=new Packet(buf);
@@ -1879,32 +2176,88 @@ break;
   }
   
   private HostKey hostkey=null;
+  /**
+   * <p>getHostKey.</p>
+   *
+   * @return a {@link com.jcraft.jsch.HostKey} object.
+   */
   public HostKey getHostKey(){ return hostkey; }
+  /**
+   * <p>Getter for the field <code>host</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getHost(){return host;}
+  /**
+   * <p>getUserName.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getUserName(){return username;}
+  /**
+   * <p>Getter for the field <code>port</code>.</p>
+   *
+   * @return a int.
+   */
   public int getPort(){return port;}
+  /**
+   * <p>Setter for the field <code>hostKeyAlias</code>.</p>
+   *
+   * @param hostKeyAlias a {@link java.lang.String} object.
+   */
   public void setHostKeyAlias(String hostKeyAlias){
     this.hostKeyAlias=hostKeyAlias;
   }
+  /**
+   * <p>Getter for the field <code>hostKeyAlias</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getHostKeyAlias(){
     return hostKeyAlias;
   }
 
+  /**
+   * <p>Setter for the field <code>serverAliveInterval</code>.</p>
+   *
+   * @param interval a int.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void setServerAliveInterval(int interval) throws JSchException {
     setTimeout(interval);
     this.serverAliveInterval=interval;
   }
+  /**
+   * <p>Setter for the field <code>serverAliveCountMax</code>.</p>
+   *
+   * @param count a int.
+   */
   public void setServerAliveCountMax(int count){
     this.serverAliveCountMax=count;
   }
 
+  /**
+   * <p>Getter for the field <code>serverAliveInterval</code>.</p>
+   *
+   * @return a int.
+   */
   public int getServerAliveInterval(){
     return this.serverAliveInterval;
   }
+  /**
+   * <p>Getter for the field <code>serverAliveCountMax</code>.</p>
+   *
+   * @return a int.
+   */
   public int getServerAliveCountMax(){
     return this.serverAliveCountMax;
   }
 
+  /**
+   * <p>setDaemonThread.</p>
+   *
+   * @param enable a boolean.
+   */
   public void setDaemonThread(boolean enable){
     this.daemon_thread=enable;
   }

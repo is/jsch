@@ -29,13 +29,26 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>Abstract UserAuth class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public abstract class UserAuth{
+  /** Constant <code>SSH_MSG_USERAUTH_REQUEST=50</code> */
   protected static final int SSH_MSG_USERAUTH_REQUEST=               50;
+  /** Constant <code>SSH_MSG_USERAUTH_FAILURE=51</code> */
   protected static final int SSH_MSG_USERAUTH_FAILURE=               51;
+  /** Constant <code>SSH_MSG_USERAUTH_SUCCESS=52</code> */
   protected static final int SSH_MSG_USERAUTH_SUCCESS=               52;
+  /** Constant <code>SSH_MSG_USERAUTH_BANNER=53</code> */
   protected static final int SSH_MSG_USERAUTH_BANNER=                53;
+  /** Constant <code>SSH_MSG_USERAUTH_INFO_REQUEST=60</code> */
   protected static final int SSH_MSG_USERAUTH_INFO_REQUEST=          60;
+  /** Constant <code>SSH_MSG_USERAUTH_INFO_RESPONSE=61</code> */
   protected static final int SSH_MSG_USERAUTH_INFO_RESPONSE=         61;
+  /** Constant <code>SSH_MSG_USERAUTH_PK_OK=60</code> */
   protected static final int SSH_MSG_USERAUTH_PK_OK=                 60;
 
   protected UserInfo userinfo;
@@ -43,6 +56,13 @@ public abstract class UserAuth{
   protected Buffer buf;
   protected String username;
 
+  /**
+   * <p>start.</p>
+   *
+   * @param session a {@link com.jcraft.jsch.Session} object.
+   * @return a boolean.
+   * @throws java.lang.Exception if any.
+   */
   public boolean start(Session session) throws Exception{
     this.userinfo=session.getUserInfo();
     this.packet=session.packet;

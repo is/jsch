@@ -29,10 +29,48 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>GSSContext interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface GSSContext{
+  /**
+   * <p>create.</p>
+   *
+   * @param user a {@link java.lang.String} object.
+   * @param host a {@link java.lang.String} object.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public void create(String user, String host) throws JSchException;
+  /**
+   * <p>isEstablished.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isEstablished();
+  /**
+   * <p>init.</p>
+   *
+   * @param token an array of byte.
+   * @param s a int.
+   * @param l a int.
+   * @return an array of byte.
+   * @throws com.jcraft.jsch.JSchException if any.
+   */
   public byte[] init(byte[] token, int s, int l) throws JSchException;
+  /**
+   * <p>getMIC.</p>
+   *
+   * @param message an array of byte.
+   * @param s a int.
+   * @param l a int.
+   * @return an array of byte.
+   */
   public byte[] getMIC(byte[] message, int s, int l);
+  /**
+   * <p>dispose.</p>
+   */
   public void dispose();
 }

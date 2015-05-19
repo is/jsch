@@ -29,10 +29,35 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>SftpProgressMonitor interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface SftpProgressMonitor{
+  /** Constant <code>PUT=0</code> */
   public static final int PUT=0;
+  /** Constant <code>GET=1</code> */
   public static final int GET=1;
+  /**
+   * <p>init.</p>
+   *
+   * @param op a int.
+   * @param src a {@link java.lang.String} object.
+   * @param dest a {@link java.lang.String} object.
+   * @param max a long.
+   */
   void init(int op, String src, String dest, long max);
+  /**
+   * <p>count.</p>
+   *
+   * @param count a long.
+   * @return a boolean.
+   */
   boolean count(long count);
+  /**
+   * <p>end.</p>
+   */
   void end();
 }

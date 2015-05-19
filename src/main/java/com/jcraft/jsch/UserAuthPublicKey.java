@@ -33,6 +33,7 @@ import java.util.Vector;
 
 class UserAuthPublicKey extends UserAuth{
 
+  /** {@inheritDoc} */
   public boolean start(Session session) throws Exception{
     super.start(session);
 

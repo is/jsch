@@ -31,10 +31,43 @@ package com.jcraft.jsch;
 
 import java.io.*;
 import java.net.Socket;
+/**
+ * <p>Proxy interface.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public interface Proxy{
+  /**
+   * <p>connect.</p>
+   *
+   * @param socket_factory a {@link com.jcraft.jsch.SocketFactory} object.
+   * @param host a {@link java.lang.String} object.
+   * @param port a int.
+   * @param timeout a int.
+   * @throws java.lang.Exception if any.
+   */
   void connect(SocketFactory socket_factory, String host, int port, int timeout) throws Exception;
+  /**
+   * <p>getInputStream.</p>
+   *
+   * @return a {@link java.io.InputStream} object.
+   */
   InputStream getInputStream();
+  /**
+   * <p>getOutputStream.</p>
+   *
+   * @return a {@link java.io.OutputStream} object.
+   */
   OutputStream getOutputStream();
+  /**
+   * <p>getSocket.</p>
+   *
+   * @return a {@link java.net.Socket} object.
+   */
   Socket getSocket();
+  /**
+   * <p>close.</p>
+   */
   void close();
 }

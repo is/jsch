@@ -46,6 +46,12 @@ import java.util.Date;
     ...      more extended data (extended_type - extended_data pairs),
              so that number of pairs equals extended_count
 */
+/**
+ * <p>SftpATTRS class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class SftpATTRS {
 
   static final int S_ISUID = 04000; // set user ID on execution
@@ -69,6 +75,11 @@ public class SftpATTRS {
 
   private static final int pmask = 0xFFF;
 
+  /**
+   * <p>getPermissionsString.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getPermissionsString() {
     StringBuffer buf = new StringBuffer(10);
 
@@ -107,20 +118,35 @@ public class SftpATTRS {
     return (buf.toString());
   }
 
+  /**
+   * <p>getAtimeString.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String  getAtimeString(){
     SimpleDateFormat locale=new SimpleDateFormat();
     return (locale.format(new Date(atime)));
   }
 
+  /**
+   * <p>getMtimeString.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String  getMtimeString(){
     Date date= new Date(((long)mtime)*1000);
     return (date.toString());
   }
 
+  /** Constant <code>SSH_FILEXFER_ATTR_SIZE=0x00000001</code> */
   public static final int SSH_FILEXFER_ATTR_SIZE=         0x00000001;
+  /** Constant <code>SSH_FILEXFER_ATTR_UIDGID=0x00000002</code> */
   public static final int SSH_FILEXFER_ATTR_UIDGID=       0x00000002;
+  /** Constant <code>SSH_FILEXFER_ATTR_PERMISSIONS=0x00000004</code> */
   public static final int SSH_FILEXFER_ATTR_PERMISSIONS=  0x00000004;
+  /** Constant <code>SSH_FILEXFER_ATTR_ACMODTIME=0x00000008</code> */
   public static final int SSH_FILEXFER_ATTR_ACMODTIME=    0x00000008;
+  /** Constant <code>SSH_FILEXFER_ATTR_EXTENDED=0x80000000</code> */
   public static final int SSH_FILEXFER_ATTR_EXTENDED=     0x80000000;
 
   static final int S_IFDIR=0x4000;
@@ -211,43 +237,120 @@ public class SftpATTRS {
   void setFLAGS(int flags){
     this.flags=flags;
   }
+  /**
+   * <p>setSIZE.</p>
+   *
+   * @param size a long.
+   */
   public void setSIZE(long size){
     flags|=SSH_FILEXFER_ATTR_SIZE;
     this.size=size;
   }
+  /**
+   * <p>setUIDGID.</p>
+   *
+   * @param uid a int.
+   * @param gid a int.
+   */
   public void setUIDGID(int uid, int gid){
     flags|=SSH_FILEXFER_ATTR_UIDGID;
     this.uid=uid;
     this.gid=gid;
   }
+  /**
+   * <p>setACMODTIME.</p>
+   *
+   * @param atime a int.
+   * @param mtime a int.
+   */
   public void setACMODTIME(int atime, int mtime){
     flags|=SSH_FILEXFER_ATTR_ACMODTIME;
     this.atime=atime;
     this.mtime=mtime;
   }
+  /**
+   * <p>setPERMISSIONS.</p>
+   *
+   * @param permissions a int.
+   */
   public void setPERMISSIONS(int permissions){
     flags|=SSH_FILEXFER_ATTR_PERMISSIONS;
     permissions=(this.permissions&~pmask)|(permissions&pmask);
     this.permissions=permissions;
   }
 
+  /**
+   * <p>isDir.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isDir(){
     return ((flags&SSH_FILEXFER_ATTR_PERMISSIONS)!=0 && 
 	    ((permissions&S_IFDIR)==S_IFDIR));
   }      
+  /**
+   * <p>isLink.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isLink(){
     return ((flags&SSH_FILEXFER_ATTR_PERMISSIONS)!=0 && 
 	    ((permissions&S_IFLNK)==S_IFLNK));
   }      
+  /**
+   * <p>Getter for the field <code>flags</code>.</p>
+   *
+   * @return a int.
+   */
   public int getFlags() { return flags; }
+  /**
+   * <p>Getter for the field <code>size</code>.</p>
+   *
+   * @return a long.
+   */
   public long getSize() { return size; }
+  /**
+   * <p>getUId.</p>
+   *
+   * @return a int.
+   */
   public int getUId() { return uid; }
+  /**
+   * <p>getGId.</p>
+   *
+   * @return a int.
+   */
   public int getGId() { return gid; }
+  /**
+   * <p>Getter for the field <code>permissions</code>.</p>
+   *
+   * @return a int.
+   */
   public int getPermissions() { return permissions; }
+  /**
+   * <p>getATime.</p>
+   *
+   * @return a int.
+   */
   public int getATime() { return atime; }
+  /**
+   * <p>getMTime.</p>
+   *
+   * @return a int.
+   */
   public int getMTime() { return mtime; }
+  /**
+   * <p>Getter for the field <code>extended</code>.</p>
+   *
+   * @return an array of {@link java.lang.String} objects.
+   */
   public String[] getExtended() { return extended; }
 
+  /**
+   * <p>toString.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String toString() {
     return (getPermissionsString()+" "+getUId()+" "+getGId()+" "+getSize()+" "+getMtimeString());
   }

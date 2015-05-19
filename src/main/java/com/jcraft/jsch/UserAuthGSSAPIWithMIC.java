@@ -29,6 +29,12 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>UserAuthGSSAPIWithMIC class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class UserAuthGSSAPIWithMIC extends UserAuth {
   private static final int SSH_MSG_USERAUTH_GSSAPI_RESPONSE=         60;
   private static final int SSH_MSG_USERAUTH_GSSAPI_TOKEN=            61;
@@ -48,6 +54,7 @@ public class UserAuthGSSAPIWithMIC extends UserAuth {
     "gssapi-with-mic.krb5"
   };
 
+  /** {@inheritDoc} */
   public boolean start(Session session)throws Exception{
     super.start(session);
 

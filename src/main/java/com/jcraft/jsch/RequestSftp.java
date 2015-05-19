@@ -29,10 +29,17 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jsch;
 
+/**
+ * <p>RequestSftp class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class RequestSftp extends Request{
   RequestSftp(){
     setReply(true);
   }
+  /** {@inheritDoc} */
   public void request(Session session, Channel channel) throws Exception{
     super.request(session, channel);
 

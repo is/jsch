@@ -32,12 +32,36 @@ package com.jcraft.jsch.jce;
 import com.jcraft.jsch.Cipher;
 import javax.crypto.spec.*;
 
+/**
+ * <p>AES256CBC class.</p>
+ *
+ * @author <a href="https://github.com/ymnk"">Atsuhiko Yamanaka</a>
+ * @version $Id: $Id
+ */
 public class AES256CBC implements Cipher{
   private static final int ivsize=16;
   private static final int bsize=32;
   private javax.crypto.Cipher cipher;    
+  /**
+   * <p>getIVSize.</p>
+   *
+   * @return a int.
+   */
   public int getIVSize(){return ivsize;} 
+  /**
+   * <p>getBlockSize.</p>
+   *
+   * @return a int.
+   */
   public int getBlockSize(){return bsize;}
+  /**
+   * <p>init.</p>
+   *
+   * @param mode a int.
+   * @param key an array of byte.
+   * @param iv an array of byte.
+   * @throws java.lang.Exception if any.
+   */
   public void init(int mode, byte[] key, byte[] iv) throws Exception{
     String pad="NoPadding";      
     byte[] tmp;
@@ -64,8 +88,14 @@ public class AES256CBC implements Cipher{
       throw e;
     }
   }
+  /** {@inheritDoc} */
   public void update(byte[] foo, int s1, int len, byte[] bar, int s2) throws Exception{
     cipher.update(foo, s1, len, bar, s2);
   }
+  /**
+   * <p>isCBC.</p>
+   *
+   * @return a boolean.
+   */
   public boolean isCBC(){return true; }
 }

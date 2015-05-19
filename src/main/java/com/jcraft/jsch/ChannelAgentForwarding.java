@@ -69,6 +69,9 @@ class ChannelAgentForwarding extends Channel{
     connected=true;
   }
 
+  /**
+   * <p>run.</p>
+   */
   public void run(){
     try{
       sendOpenConfirmation();
