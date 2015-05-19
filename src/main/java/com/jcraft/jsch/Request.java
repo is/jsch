@@ -39,8 +39,9 @@ abstract class Request {
    *
    * @param session The {@link Session} on which to make the request
    * @param channel The {@link Channel} on which to make the request
+   * @throws Exception If there is an error handling the request
    */
-  void request(Session session, Channel channel) {
+  void request(Session session, Channel channel) throws Exception {
     this.session = session;
     this.channel = channel;
     if (channel.connectTimeout > 0) {
