@@ -1,4 +1,12 @@
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
+/**
+ * This program will demonstrate the keyboard-interactive authentication.
+ *   $ CLASSPATH=.:../build javac UserAuthKI.java
+ *   $ CLASSPATH=.:../build java UserAuthKI
+ * If the remote sshd supports keyboard-interactive authentication,
+ * you will be prompted.
+ *
+ */
 import com.jcraft.jsch.*;
 import java.awt.*;
 import javax.swing.*;

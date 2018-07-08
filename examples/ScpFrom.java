@@ -1,4 +1,13 @@
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
+/**
+ * This program will demonstrate the file transfer from remote to local
+ *   $ CLASSPATH=.:../build javac ScpFrom.java
+ *   $ CLASSPATH=.:../build java ScpFrom user@remotehost:file1 file2
+ * You will be asked passwd. 
+ * If everything works fine, a file 'file1' on 'remotehost' will copied to
+ * local 'file1'.
+ *
+ */
 import com.jcraft.jsch.*;
 import java.awt.*;
 import javax.swing.*;

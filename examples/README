@@ -38,6 +38,13 @@ This directory contains some examples, which demonstrate how to use JSch
   You will be asked username, hostname, proxy-server and passwd. 
   If everything works fine, you will get the shell prompt.
 
+- ViaSOCKS.java
+  This program will demonstrate the ssh session via SOCKS proxy.
+  $ CLASSPATH=.:../build javac ViaSOCKS.java 
+  $ CLASSPATH=.:../build java ViaSOCKS
+  You will be asked username, hostname, proxy-server and passwd. 
+  If everything works fine, you will get the shell prompt.
+
 - PortForwardingR.java
   This program will demonstrate the port forwarding like option -R of
   ssh command; the given port on the remote host will be forwarded to
@@ -158,3 +165,18 @@ or
 - Logger.java
   This program will demonstrate how to enable logging mechanism and
   get logging messages.
+
+- Subsystem.java
+  This program will demonstrate how to use the Subsystem channel.
+
+- Sudo.java
+  This program will demonstrate how to exec 'sudo' on the remote.
+
+- ScpToNoneCipher.java
+  This program will demonstrate how to enable none cipher.
+
+- JumpHosts.java
+  This program will demonstrate SSH through jump hosts.
+
+- OpenSSHConfig.java
+  This program will demonstrate how OpenSSH's config is supported.

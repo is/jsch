@@ -1,4 +1,16 @@
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
+/**
+ * This program will demonstrate the stream forwarding. The given Java
+ * I/O streams will be forwared to the given remote host and port on
+ * the remote side.  It is simmilar to the -L option of ssh command,
+ * but you don't have to assign and open a local tcp port.
+ *   $ CLASSPATH=.:../build javac StreamForwarding.java
+ *   $ CLASSPATH=.:../build java StreamForwarding
+ * You will be asked username, hostname, host:hostport and passwd. 
+ * If everything works fine, System.in and System.out streams will be
+ * forwared to remote port and you can send messages from command line.
+ *
+ */
 import com.jcraft.jsch.*;
 import java.awt.*;
 import javax.swing.*;
@@ -36,12 +48,12 @@ public class StreamForwarding{
 
       System.out.println("System.{in,out} will be forwarded to "+
 			 host+":"+port+".");
-      Channel channel=session.openChannel("direct-tcpip");
-      ((ChannelDirectTCPIP)channel).setInputStream(System.in);
-      ((ChannelDirectTCPIP)channel).setOutputStream(System.out);
-      ((ChannelDirectTCPIP)channel).setHost(host);
-      ((ChannelDirectTCPIP)channel).setPort(port);
-      channel.connect();
+      Channel channel = session.getStreamForwarder(host, port);
+      // InputStream in = channel.getInputStream();
+      // OutpuStream out = channel.getOutputStream();
+      channel.setInputStream(System.in);
+      channel.setOutputStream(System.out);
+      channel.connect(1000);
     }
     catch(Exception e){
       System.out.println(e);

@@ -1,4 +1,8 @@
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
+/**
+ * This program will demonstrate how to use "aes128-cbc".
+ *
+ */
 import com.jcraft.jsch.*;
 import java.awt.*;
 import javax.swing.*;

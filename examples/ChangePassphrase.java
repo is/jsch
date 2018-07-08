@@ -1,4 +1,15 @@
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
+/**
+ * This program will demonstrate to change the passphrase for a
+ * private key file instead of creating a new private key.
+ *   $ CLASSPATH=.:../build javac ChangePassphrase.java
+ *   $ CLASSPATH=.:../build java ChangePassphrase private-key
+ * A passphrase will be prompted if the given private-key has been
+ * encrypted.  After successfully loading the content of the
+ * private-key, the new passphrase will be prompted and the given
+ * private-key will be re-encrypted with that new passphrase.
+ *
+ */
 import com.jcraft.jsch.*;
 import javax.swing.*;
 

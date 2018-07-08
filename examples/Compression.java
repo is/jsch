@@ -1,4 +1,13 @@
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
+/**
+ * This program will demonstrate the packet compression.
+ *   $ CLASSPATH=.:../build javac Compression.java
+ *   $ CLASSPATH=.:../build java Compression
+ * You will be asked username, hostname and passwd. 
+ * If everything works fine, you will get the shell prompt. 
+ * In this program, all data from sshd server to jsch will be compressed.
+ *
+ */
 import com.jcraft.jsch.*;
 import java.awt.*;
 import javax.swing.*;

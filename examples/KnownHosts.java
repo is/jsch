@@ -1,4 +1,14 @@
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
+/**
+ * This program will demonstrate the 'known_hosts' file handling.
+ *   $ CLASSPATH=.:../build javac KnownHosts.java
+ *   $ CLASSPATH=.:../build java KnownHosts
+ * You will be asked username, hostname, a path for 'known_hosts' and passwd. 
+ * If everything works fine, you will get the shell prompt.
+ * In current implementation, jsch only reads 'known_hosts' for checking
+ * and does not modify it.
+ *
+ */
 import com.jcraft.jsch.*;
 import java.awt.*;
 import javax.swing.*;

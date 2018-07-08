@@ -1,4 +1,12 @@
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
+/**
+ * This program will demonstrate the ssh session via HTTP proxy.
+ *   $ CLASSPATH=.:../build javac ViaHTTP.java 
+ *   $ CLASSPATH=.:../build java ViaHTTP
+ * You will be asked username, hostname, proxy-server and passwd. 
+ * If everything works fine, you will get the shell prompt.
+ *
+ */
 import com.jcraft.jsch.*;
 import java.awt.*;
 import javax.swing.*;

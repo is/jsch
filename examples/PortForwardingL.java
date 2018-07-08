@@ -1,4 +1,15 @@
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
+/**
+ * This program will demonstrate the port forwarding like option -L of
+ * ssh command; the given port on the local host will be forwarded to
+ * the given remote host and port on the remote side.
+ *   $ CLASSPATH=.:../build javac PortForwardingL.java
+ *   $ CLASSPATH=.:../build java PortForwardingL
+ * You will be asked username, hostname, port:host:hostport and passwd. 
+ * If everything works fine, you will get the shell prompt.
+ * Try the port on localhost.
+ *
+ */
 import com.jcraft.jsch.*;
 import java.awt.*;
 import javax.swing.*;
