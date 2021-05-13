@@ -850,6 +850,10 @@ key_type+" key fingerprint is "+key_fprint+".\n"+
     return null;
   }
 
+  public Channel openChannel(ChannelType channelType) throws JSchException {
+    return this.openChannel(channelType.getType());
+  }
+
   // encode will bin invoked in write with synchronization.
   public void encode(Packet packet) throws Exception{
 
